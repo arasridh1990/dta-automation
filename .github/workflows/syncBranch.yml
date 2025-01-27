@@ -57,6 +57,7 @@ jobs:
          eval "$(ssh-agent -s)"
          echo "Add the private key"
          cat ~/.ssh/id_rsa_offshore | tr -d '\r' | DISPLAY=None SSH_ASKPASS=~/.ssh/passphrase ssh-add -
+         echo "Add the private key Complete"
          ssh-keyscan github.com >> ~/.ssh/known_hosts
 
       - name: Test SSH Authentication
