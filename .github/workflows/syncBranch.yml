@@ -9,34 +9,33 @@ on:
         default: "odc_sample" # Default branch name to sync
 
 env:
-  GITHUB_TOKEN_OFFSHORE: XXXX
-  GITHUB_TOKEN_ONSHORE: XXXX
-  GITHUB_PRIVATE_KEY: XXXX
+  GITHUB_PRIVATE_KEY_PERSONAL: ${{ secrets.PERSONAL_PVT_KEY }}
+  GITHUB_PRIVATE_KEY_OFFSHORE: ${{ secrets.OFFSHORE_PVT_KEY }}
 
 jobs:
   sync-branches:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Offshore Repository
+      - name: Checkout Personal Repository
         uses: actions/checkout@v3
         with:
-          repository: kyybatech/repo_connect_automation
+          repository: aravinthsridhar/dta-automation.git
           ref: ${{ github.event.inputs.branch }}
-          token: ${{ env.GITHUB_TOKEN_OFFSHORE }}
-      - name: Echo SSH key
-        run: |
-          mkdir ~/.ssh/id_rsa
-          echo ${{ env.GITHUB_PRIVATE_KEY }} | base64 -d > ~/.ssh/id_rsa
+          ssh-key: ${{ env.GITHUB_PRIVATE_KEY_PERSONAL }}
           
-      - name: Add Onshore Repository as Remote
+      - name: Add Offshore Repository as Remote
         run: |
-          echo  ${{ env.GITHUB_PRIVATE_KEY }} | base64 -d > ~/.ssh/id_rsa
+          mkdir -p ~/.ssh
+          echo "${{ env.GITHUB_PRIVATE_KEY_OFFSHORE }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-          git remote add onshore git@github.com:massgov-eohhs/dta-connect-automation.git
-          git fetch onshore
-
-      - name: Push Changes to Onshore Repository
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          
+      - name: Add Destination Repository as Remote
         run: |
-          git push onshore ${{ github.event.inputs.branch }}
+          git remote add dest git@github.com:kyybatech/repo_connect_automation.git
+          git fetch dest
+          
+      - name: Push to Destination Repository
+        run: |
+          git push dest  ${{ github.event.inputs.branch }}: ${{ github.event.inputs.branch }} # Replace with the branch mapping you want
