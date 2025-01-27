@@ -56,14 +56,10 @@ jobs:
          echo "${{ env.GITHUB_PRIVATE_KEY_OFFSHORE }}" | tr -d '\r' | ssh-add -
          echo "Add the private key Complete"
          ssh-keyscan github.com >> ~/.ssh/known_hosts
+         ssh -T git@github.com || (echo "SSH authentication failed" && exit 1)
+         git remote add dest git@github.com:kyybatech/repo_connect_automation.git
+         git fetch dest || (echo "Failed to fetch from remote repository" && exit 1)
         
-      - name: Add Offshore Repository as Remote
-        id: add-offshore-remote
-        run: |
-          ssh -T git@github.com || (echo "SSH authentication failed" && exit 1)
-          git remote add dest git@github.com:kyybatech/repo_connect_automation.git
-          git fetch dest || (echo "Failed to fetch from remote repository" && exit 1)
-
       # Step 3: Detect Merge Conflicts
       - name: Merge Changes
         id: merge-changes 
