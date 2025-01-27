@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">	
+
+<appenders>
+		<!-- <File name="MyFile" fileName="target/Logs/${sys:logFileName}" append="false"> -->
+		<File name="MyFile" fileName="target/Logs/TestLog" append="false">
+			<PatternLayout>
+				<pattern>[%p] %d{yyyy-MM-dd HH:mm:ss} - %msg%n
+				</pattern>
+			</PatternLayout>
+			</File>
+	</appenders>
+
+	<Loggers>
+		<Root level="all">
+			<AppenderRef ref="MyFile" level="all" />
+		</Root>
+	</Loggers>
+
+</Configuration>

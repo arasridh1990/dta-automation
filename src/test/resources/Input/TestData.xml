@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<TestCases>
+
+<Test Name="Online_Account">
+		<Accountdate>23</Accountdate>
+		<Accountmonth>March</Accountmonth>
+		<Accountyear>1981</Accountyear>
+		
+	</Test>
+
+
+	<Test Name="test">
+		<moreHH>7</moreHH>
+		
+		<FValidation>Please enter your first name</FValidation>
+		<LValidation>Please enter your last name</LValidation>
+		<DOBValidation>Please enter a valid date of birth</DOBValidation>
+		<SSNValidation>Please enter a valid Social Security Number</SSNValidation>
+		<addressvalidation>Please enter a valid address</addressvalidation>
+		<phonevalidation>Please enter a valid phone number</phonevalidation>
+		<emailvalidation>Please enter a valid email address</emailvalidation>
+		<zipvalidation>This SNAP application is for Massachusetts residents. If you live in Massachusetts, please enter your Zip Code. If you do not live in Massachusetts, you must apply in your state.</zipvalidation>
+		<householdvalidation>Please choose no. of household</householdvalidation>
+		<hhincomevalidation>Please select an option below</hhincomevalidation>
+		<hhincomeamountvalidation>Please enter a valid amount</hhincomeamountvalidation>
+		<agree.validation>Please agree to the terms</agree.validation>
+		<sign.validation>Please sign your application</sign.validation>
+		</Test>
+		
+	<Test Name="old">
+		<Street>600 Washington st</Street>
+		<Zip>02111</Zip>
+		<MailStreet>601 Washington st</MailStreet>
+		<MailZip>02148</MailZip>
+		
+		<moreHH>7</moreHH>
+		<WrongSSN>8521</WrongSSN>
+		<FValidation>Please enter your first name</FValidation>
+		<LValidation>Please enter your last name</LValidation>
+		<DOBValidation>Please enter a valid date of birth</DOBValidation>
+		<SSNValidation>Please enter a valid Social Security Number</SSNValidation>
+		<HHFValidation>Please enter first name</HHFValidation>
+		<HHLValidation>Please enter last name</HHLValidation>
+		<wages.amount1>2256.35</wages.amount1>
+		<month>Month</month>
+		<wages.amount2>1000</wages.amount2>
+		<twoweeks>Every two weeks</twoweeks>
+		<wages.amount3>500</wages.amount3>
+		<week>Week</week>
+		
+	</Test>
+	
+	<Test Name="Unused test data">
+		<Suffix>Jr.</Suffix>
+		<moreHH>5</moreHH>
+		
+	</Test>
+	
+	<Test Name="About_Me_Validation_Msg">
+		<WrongSSN>8521</WrongSSN>
+		<FValidation>Please enter your first name</FValidation>
+		<LValidation>Please enter your last name</LValidation>
+		<DOBValidation>Please enter a valid date of birth</DOBValidation>
+		<SSNValidation>Please enter a valid Social Security Number</SSNValidation>
+	</Test>
+	<Test Name="My_Contact_Info_Validation_Msg">
+		<FName>Santhosh</FName>
+		<MName>R</MName>
+		<LName>Karra</LName>
+		<Date>10</Date>
+		<Month>March</Month>
+		<Year>1940</Year>
+		<SSN>645458521</SSN>
+		
+		<Street>600 Washington st</Street>
+		<WrongZip>22222</WrongZip>
+	</Test>
+	<Test Name="My_Contact_Info_Mailing_Address">
+		<FName>Santhosh</FName>
+		<MName>R</MName>
+		<LName>Karra</LName>
+		<Date>10</Date>
+		<Month>March</Month>
+		<Year>1940</Year>
+		<SSN>645458521</SSN>
+		<Street>600 Washington st</Street>
+		<Zip>02111</Zip>
+		<MailStreet>601 Washington st</MailStreet>
+		<MailZip>02148</MailZip>
+		<Phone>9959511447</Phone>
+		<Email>dta@mass.gov</Email>
+	</Test>
+	<Test Name="My_Contact_Info_Homeless_No">
+		<FName>Santhosh</FName>
+		<MName>R</MName>
+		<LName>Karra</LName>
+		<Date>10</Date>
+		<Month>March</Month>
+		<Year>1940</Year>
+		<SSN>645458521</SSN>
+		<Street>600 Washington st</Street>
+		<Zip>02111</Zip>
+		<MailStreet>601 Washington st</MailStreet>
+		<MailZip>02148</MailZip>
+		<Phone>9959511447</Phone>
+		<Email>dta@mass.gov</Email>
+	</Test>
+	<Test Name="About_My_Household_Validation_Msg">
+		<FName>Santhosh</FName>
+		<MName>R</MName>
+		<LName>Karra</LName>
+		<Date>10</Date>
+		<Month>March</Month>
+		<Year>1940</Year>
+		<SSN>645458521</SSN>
+		<Street>600 Washington st</Street>
+		<Zip>02111</Zip>
+		<MailStreet>601 Washington st</MailStreet>
+		<MailZip>02148</MailZip>
+		<Phone>9959511447</Phone>
+		<Email>dta@mass.gov</Email>
+		<Language>French</Language>
+		<householdvalidation>Please choose no. of household</householdvalidation>
+	</Test>
+	<Test Name="About_Your_Householde_Income_Validation_Msg">
+		<FName>Santhosh</FName>
+		<MName>R</MName>
+		<LName>Karra</LName>
+		<Date>10</Date>
+		<Month>March</Month>
+		<Year>1940</Year>
+		<SSN>645458521</SSN>
+		<Street>600 Washington st</Street>
+		<Zip>02111</Zip>
+		<MailStreet>601 Washington st</MailStreet>
+		<MailZip>02148</MailZip>
+		<Phone>9959511447</Phone>
+		<Email>dta@mass.gov</Email>
+		<Language>French</Language>
+		<hhincomevalidation>Please select an option below</hhincomevalidation>
+	</Test>
+	<Test Name="About_Your_Householde_Income">
+		<FName>Santhosh</FName>
+		<MName>R</MName>
+		<LName>Karra</LName>
+		<Date>10</Date>
+		<Month>March</Month>
+		<Year>1940</Year>
+		<SSN>645458521</SSN>
+		<Street>600 Washington st</Street>
+		<Zip>02111</Zip>
+		<MailStreet>601 Washington st</MailStreet>
+		<MailZip>02148</MailZip>
+		<Phone>9959511447</Phone>
+		<Email>dta@mass.gov</Email>
+		<Language>French</Language>
+	</Test>
+	<Test Name="Income_And_Benefits_Validation_Msg">
+		<FName>Santhosh</FName>
+		<MName>R</MName>
+		<LName>Karra</LName>
+		<Date>10</Date>
+		<Month>March</Month>
+		<Year>1940</Year>
+		<SSN>645458521</SSN>
+		<Street>600 Washington st</Street>
+		<Zip>02111</Zip>
+		<MailStreet>601 Washington st</MailStreet>
+		<MailZip>02148</MailZip>
+		<Phone>9959511447</Phone>
+		<Email>dta@mass.gov</Email>
+		<Language>French</Language>
+		<hhincomevalidation>Please select an option below</hhincomevalidation>
+	</Test>
+	<Test Name="Income_And_Benefits">
+		<FName>Santhosh</FName>
+		<MName>R</MName>
+		<LName>Karra</LName>
+		<Date>10</Date>
+		<Month>March</Month>
+		<Year>1940</Year>
+		<SSN>645458521</SSN>
+		<Street>600 Washington st</Street>
+		<Zip>02111</Zip>
+		<MailStreet>601 Washington st</MailStreet>
+		<MailZip>02148</MailZip>
+		<Phone>9959511447</Phone>
+		<Email>dta@mass.gov</Email>
+		<Language>French</Language>
+	</Test>
+	<Test Name="Income_And_Benefits_Amount_Validation_Msg">
+		<FName>Santhosh</FName>
+		<MName>R</MName>
+		<LName>Karra</LName>
+		<Date>10</Date>
+		<Month>March</Month>
+		<Year>1940</Year>
+		<SSN>645458521</SSN>
+		<Street>600 Washington st</Street>
+		<Zip>02111</Zip>
+		<MailStreet>601 Washington st</MailStreet>
+		<MailZip>02148</MailZip>
+		<Phone>9959511447</Phone>
+		<Email>dta@mass.gov</Email>
+		<Language>French</Language>
+		<hhincomeamountvalidation>Please enter a valid amount</hhincomeamountvalidation>
+	</Test>
+	<Test Name="Income_And_Benefits_Wages">
+		<FName>Santhosh</FName>
+		<MName>R</MName>
+		<LName>Karra</LName>
+		<Date>10</Date>
+		<Month>March</Month>
+		<Year>1940</Year>
+		<SSN>645458521</SSN>
+		<Street>600 Washington st</Street>
+		<Zip>02111</Zip>
+		<MailStreet>601 Washington st</MailStreet>
+		<MailZip>02148</MailZip>
+		<Phone>9959511447</Phone>
+		<Email>dta@mass.gov</Email>
+		<Language>French</Language>
+		<wages.amount1>2256.35</wages.amount1>
+		<month>Month</month>
+		<wages.amount2>1000</wages.amount2>
+		<twoweeks>Every two weeks</twoweeks>
+		<wages.amount3>500</wages.amount3>
+		<week>Week</week>
+	</Test>
+	<Test Name="Income_And_Benefits_Wages1">
+		<FName>Santhosh</FName>
+		<MName>R</MName>
+		<LName>Karra</LName>
+		<Date>10</Date>
+		<Month>March</Month>
+		<Year>1940</Year>
+		<SSN>645458521</SSN>
+		<Street>600 Washington st</Street>
+		<Zip>02111</Zip>
+		<MailStreet>601 Washington st</MailStreet>
+		<MailZip>02148</MailZip>
+		<Phone>9959511447</Phone>
+		<Email>dta@mass.gov</Email>
+		<Language>French</Language>
+		<wages.amount1>2256.35</wages.amount1>
+		<month>Month</month>
+		<wages.amount2>1000</wages.amount2>
+		<twoweeks>Every two weeks</twoweeks>
+		<wages.amount3>500</wages.amount3>
+		<week>Week</week>
+		<selfemp.amount1>12</selfemp.amount1>
+		<selfemp.amount2>123</selfemp.amount2>
+		<selfemp.amount3>1234</selfemp.amount3>
+		<workstudy.amount1>12</workstudy.amount1>
+		<workstudy.amount2>123</workstudy.amount2>
+		<workstudy.amount3>1234</workstudy.amount3>
+		<ssi.amount1>12</ssi.amount1>
+		<ssi.amount2>123</ssi.amount2>
+		<ssi.amount3>1234</ssi.amount3>
+		<rsdi.amount1>12</rsdi.amount1>
+		<rsdi.amount2>123</rsdi.amount2>
+		<rsdi.amount3>1234</rsdi.amount3>
+		<childsupportcost>222</childsupportcost>
+		<medical.Street>600 Washington st</medical.Street>
+		<medical.Zip>02111</medical.Zip>
+		<medical.City>Boston</medical.City>
+		<medical.trips>3</medical.trips>
+		<parkingfee>55.3</parkingfee>
+		<year>Year</year>
+		<agree.validation>Please agree to the terms</agree.validation>
+		<sign.validation>Please sign your application</sign.validation>
+		<Sign>Santhosh</Sign>
+	</Test>
+	<Test Name="Wages_Heat_AC_Rent">
+		<FName>Santhosh</FName>
+		<MName>R</MName>
+		<LName>Karra</LName>
+		<Date>10</Date>
+		<Month>March</Month>
+		<Year>1940</Year>
+		<SSN>645458521</SSN>
+		<Street>600 Washington st</Street>
+		<Zip>02111</Zip>
+		<MailStreet>601 Washington st</MailStreet>
+		<MailZip>02148</MailZip>
+		<Phone>9959511447</Phone>
+		<Email>dta@mass.gov</Email>
+		<Language>French</Language>
+		<wages.amount1>2256.35</wages.amount1>
+		<month>Month</month>
+		<wages.amount2>1000</wages.amount2>
+		<twoweeks>Every two weeks</twoweeks>
+		<wages.amount3>500</wages.amount3>
+		<week>Week</week>
+		<selfemp.amount1>12</selfemp.amount1>
+		<selfemp.amount2>123</selfemp.amount2>
+		<selfemp.amount3>1234</selfemp.amount3>
+		<workstudy.amount1>12</workstudy.amount1>
+		<workstudy.amount2>123</workstudy.amount2>
+		<workstudy.amount3>1234</workstudy.amount3>
+		<ssi.amount1>12</ssi.amount1>
+		<ssi.amount2>123</ssi.amount2>
+		<ssi.amount3>1234</ssi.amount3>
+		<rsdi.amount1>12</rsdi.amount1>
+		<rsdi.amount2>123</rsdi.amount2>
+		<rsdi.amount3>1234</rsdi.amount3>
+		<childsupportcost>222</childsupportcost>
+		<medical.Street>600 Washington st</medical.Street>
+		<medical.Zip>02111</medical.Zip>
+		<medical.City>Boston</medical.City>
+		<medical.trips>3</medical.trips>
+		<parkingfee>55.3</parkingfee>
+		<year>Year</year>
+		<Sign>Santhosh</Sign>
+	</Test>
+	<Test Name="HouseholdCountTwo">
+		<FName>Santhosh</FName>
+		<MName>R</MName>
+		<LName>Karra</LName>
+		<Date>10</Date>
+		<Month>March</Month>
+		<Year>1940</Year>
+		<SSN>645458521</SSN>
+		<Street>600 Washington st</Street>
+		<Zip>02111</Zip>
+		<MailStreet>601 Washington st</MailStreet>
+		<MailZip>02148</MailZip>
+		<Phone>9959511447</Phone>
+		<Email>dta@mass.gov</Email>
+		<Language>French</Language>
+		<wages.amount1>2256.35</wages.amount1>
+		<month>Month</month>
+		<wages.amount2>1000</wages.amount2>
+		<twoweeks>Every two weeks</twoweeks>
+		<wages.amount3>500</wages.amount3>
+		<week>Week</week>
+		<selfemp.amount1>12</selfemp.amount1>
+		<selfemp.amount2>123</selfemp.amount2>
+		<selfemp.amount3>1234</selfemp.amount3>
+		<workstudy.amount1>12</workstudy.amount1>
+		<workstudy.amount2>123</workstudy.amount2>
+		<workstudy.amount3>1234</workstudy.amount3>
+		<ssi.amount1>12</ssi.amount1>
+		<ssi.amount2>123</ssi.amount2>
+		<ssi.amount3>1234</ssi.amount3>
+		<rsdi.amount1>12</rsdi.amount1>
+		<rsdi.amount2>123</rsdi.amount2>
+		<rsdi.amount3>1234</rsdi.amount3>
+		<childsupportcost>222</childsupportcost>
+		<medical.Street>600 Washington st</medical.Street>
+		<medical.Zip>02111</medical.Zip>
+		<medical.City>Boston</medical.City>
+		<medical.trips>3</medical.trips>
+		<parkingfee>55.3</parkingfee>
+		<year>Year</year>
+		<agree.validation>Please agree to the terms</agree.validation>
+		<sign.validation>Please sign your application</sign.validation>
+		<Sign>Santhosh</Sign>
+	</Test>
+	
+	
+	
+	
+	
+	<Test Name="Apply_SNAP">
+
+		<FName>Santhosh</FName>
+		<MName>R</MName>
+		<LName>Karra</LName>
+		<Date>10</Date>
+		<Month>March</Month>
+		<Year>1940</Year>
+		<SSN>645458521</SSN>
+		<Street>600 Washington st</Street>
+		<Zip>02111</Zip>
+		<MailStreet>601 Washington st</MailStreet>
+		<MailZip>02148</MailZip>
+		<Phone>9959511447</Phone>
+		<Email>dta@mass.gov</Email>
+		<Language>French</Language>
+		<wages.amount1>2256.35</wages.amount1>
+		<month>Month</month>
+		<twoweeks>Every two weeks</twoweeks>
+		<week>Week</week>
+		<wages.amount2>2256.35</wages.amount2>
+		<wages.amount2>2256.35</wages.amount2>
+
+
+
+
+
+
+		<Sign>Santhosh</Sign>
+	</Test>
+</TestCases>

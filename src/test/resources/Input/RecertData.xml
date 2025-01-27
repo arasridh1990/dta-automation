@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<TestCases>
+	<Test Name="RECERTApplyTC1">
+		 <Phone>1234567890</Phone>
+		 <Email>test@gmail.com</Email>
+		 <FName>John</FName>
+		 <LName>Carter</LName>
+		 <MName>R</MName>
+		 <Day>7</Day>
+		 <Month>July</Month>
+		 <Year>1992</Year>
+		 <SSN>453453454</SSN>
+		 <School>Richland high school</School>
+		 <SASID>9857463627</SASID>
+		 <DpdtPayAmount>34.54</DpdtPayAmount>
+		 <DpdtPayPeriod>Annual</DpdtPayPeriod>
+		 <DpdtTrnsrtAmount>34.64</DpdtTrnsrtAmount>
+		 <DpdtTrnsrtPeriod>Monthly</DpdtTrnsrtPeriod>
+		 <StreetName>5323 Street Name</StreetName>
+		 <City>Boston</City>
+		 <Zipcode>05674</Zipcode>
+		 <DpdtOftnDrive>4543</DpdtOftnDrive>
+		 <DpdtOftnPeriod>Annual</DpdtOftnPeriod>
+		 <MedicalTotalCost>755.45</MedicalTotalCost>
+		 <MedicalOftnDrive>54354</MedicalOftnDrive>
+		 <MedicalOftnPeriod>Annual</MedicalOftnPeriod>
+		 <MedicalTrnsptAmt>54354</MedicalTrnsptAmt>
+		 <MedicalTrnsptPeriod>Annual</MedicalTrnsptPeriod>
+		 <Signature>John Smith</Signature>
+	</Test>	
+	
+	<Test Name="RECERTApplyTC2">
+		 <Phone>1234567890</Phone>
+		 <Email>test@gmail.com</Email>
+		 <FName>John</FName>
+		 <LName>Carter</LName>
+		 <MName>R</MName>
+		 <Day>7</Day>
+		 <Month>July</Month>
+		 <Year>1992</Year>
+		 <SSN>453453454</SSN>
+		 <School>Richland high school</School>
+		 <SASID>9857463627</SASID>
+		 <DpdtPayAmount>34.54</DpdtPayAmount>
+		 <DpdtPayPeriod>Annual</DpdtPayPeriod>
+		 <DpdtTrnsrtAmount>34.64</DpdtTrnsrtAmount>
+		 <DpdtTrnsrtPeriod>Monthly</DpdtTrnsrtPeriod>
+		 <StreetName>5323 Street Name</StreetName>
+		 <City>Boston</City>
+		 <Zipcode>05674</Zipcode>
+		 <DpdtOftnDrive>4543</DpdtOftnDrive>
+		 <DpdtOftnPeriod>Annual</DpdtOftnPeriod>
+		 <MedicalTotalCost>755.45</MedicalTotalCost>
+		 <MedicalOftnDrive>54354</MedicalOftnDrive>
+		 <MedicalOftnPeriod>Annual</MedicalOftnPeriod>
+		 <MedicalTrnsptAmt>54354</MedicalTrnsptAmt>
+		 <MedicalTrnsptPeriod>Annual</MedicalTrnsptPeriod>
+		 <Signature>John Smith</Signature>
+	</Test>
+	
+    <Test Name="RECERTApplyTC3">
+	     <Language-Spanish>es-ES</Language-Spanish>
+		 <Language-Portuguese>pt-BR</Language-Portuguese>
+		 <Language-Chinese>zh-Hans</Language-Chinese>
+		 <Language-Vietnamese>vi-VI</Language-Vietnamese>	
+		 <Language-Haitan>ht</Language-Haitan>
+		 <Signature>Tom Riddle</Signature>
+		
+    </Test>
+		 
+</TestCases>
