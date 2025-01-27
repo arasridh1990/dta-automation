@@ -36,6 +36,7 @@ jobs:
          mkdir -p ~/.ssh
          echo "${{ secrets.GITHUB_PRIVATE_KEY_OFFSHORE }}" > ~/.ssh/id_rsa_offshore
          chmod 600 ~/.ssh/id_rsa_offshore
+         sed -i 's/\r//' ~/.ssh/id_rsa_offshore
          eval "$(ssh-agent -s)"
          ssh-add ~/.ssh/id_rsa_offshore
          ssh-keyscan github.com >> ~/.ssh/known_hosts
