@@ -60,6 +60,7 @@ jobs:
       - name: Add Offshore Repository as Remote
         id: add-offshore-remote
         run: |
+          ssh -vT git@github.com
           git remote add dest git@github.com:kyybatech/repo_connect_automation.git
           git fetch dest || (echo "Failed to fetch from remote repository" && exit 1)
 
