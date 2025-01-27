@@ -59,7 +59,7 @@ jobs:
 
       - name: Test SSH Authentication
         id: test-ssh-auth
-        run: ssh -i -tt ~/.ssh/id_rsa_offshore -o StrictHostKeyChecking=no git@github.com
+        run: ssh -tt ~/.ssh/id_rsa_offshore -o StrictHostKeyChecking=no git@github.com
         
       - name: Add Offshore Repository as Remote
         id: add-offshore-remote
