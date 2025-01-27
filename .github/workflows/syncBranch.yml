@@ -47,7 +47,7 @@ jobs:
          chmod 600 ~/.ssh/id_rsa_offshore
          echo "Checking permissions of remote_key after the change"
          ls -l ~/.ssh/id_rsa_offshore
-         echo 'echo ${{env.GIHUB_PASSPAHRASE}}' > ~/.ssh/passphrase && chmod 600 ~/.ssh/passphrase
+         echo 'echo ${{env.GIHUB_PASSPAHRASE}}' > ~/.ssh/passphrase && chmod 700 ~/.ssh/passphrase
 
       - name: Start SSH Agent
         id: ssh-agent
