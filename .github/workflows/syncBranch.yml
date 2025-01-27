@@ -21,10 +21,12 @@ jobs:
     steps:
       # Step 1: Configure SSH for Personal Repository
       - name: Add SSH Key for Personal Repo
+        id: add-ssh-key
         run: |
           git config --global init.defaultBranch main
           
       - name: Checkout Personal Repository
+        id: checkout-personal-repo
         uses: actions/checkout@v3
         with:
           repository: aravinthsridhar/dta-automation.git
@@ -33,6 +35,7 @@ jobs:
 
       # Step 2: Configure SSH for Offshore Repository
       - name: Add SSH Key and Configure
+        id: add-ssh-key-offshore 
         run: |
          mkdir -p ~/.ssh
          chmod 700 ~/.ssh
@@ -47,6 +50,7 @@ jobs:
          echo 'echo ${{env.GIHUB_PASSPAHRASE}}' > ~/.ssh/passphrase && chmod 600 ~/.ssh/passphrase
 
       - name: Start SSH Agent
+        id: ssh-agent
         run: |
          eval "$(ssh-agent -s)"
          echo "Add the private key"
@@ -54,27 +58,32 @@ jobs:
          ssh-keyscan github.com >> ~/.ssh/known_hosts
 
       - name: Test SSH Authentication
+        id: test-ssh-auth
         run: ssh -i ~/.ssh/id_rsa_offshore -o StrictHostKeyChecking=no git@github.com
         
       - name: Add Offshore Repository as Remote
+        id: add-offshore-remote
         run: |
           git remote add dest git@github.com:kyybatech/repo_connect_automation.git
           git fetch dest || (echo "Failed to fetch from remote repository" && exit 1)
 
       # Step 3: Detect Merge Conflicts
       - name: Merge Changes
+        id: merge-changes 
         run: |
           set -e
           git merge origin/${{ github.event.inputs.branch }} || (echo "Merge conflict detected!" && exit 1)
 
       # Step 4: Push to Destination Repository
       - name: Push to Destination Repository
+        id: push-to-destination
         run: |
           set -e
           git push dest ${{ github.event.inputs.branch }}:${{ github.event.inputs.branch }} || (echo "Failed to push changes to destination" && exit 1)
 
       # Step 5: Debug Output (Optional)
       - name: Debug Git Status
+        id: debug-git-status
         run: |
           git status
           echo "If workflow failed, debug the logs above."
