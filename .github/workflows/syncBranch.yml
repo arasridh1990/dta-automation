@@ -18,13 +18,7 @@ jobs:
   sync-branches:
     runs-on: ubuntu-latest
 
-    steps:
-      # Step 1: Configure SSH for Personal Repository
-      - name: Add SSH Key for Personal Repo
-        id: add-ssh-key
-        run: |
-          git config --global init.defaultBranch main
-          
+    steps:   
       - name: Checkout Personal Repository
         id: checkout-personal-repo
         uses: actions/checkout@v3
@@ -48,7 +42,6 @@ jobs:
 
       - name: Configure Git Remote
         run: |
-          git config --global init.defaultBranch master
           git remote add dest git@github.com:kyybatech/repo_connect_automation.git
           git fetch dest || (echo "Failed to fetch from remote repository" && exit 1)
         
