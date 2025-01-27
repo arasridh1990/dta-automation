@@ -48,6 +48,8 @@ jobs:
          echo "Checking permissions of remote_key after the change"
          ls -l ~/.ssh/id_rsa_offshore
          echo 'echo ${{env.GIHUB_PASSPAHRASE}}' > ~/.ssh/passphrase && chmod 700 ~/.ssh/passphrase
+         echo "${{env.GIHUB_PASSPAHRASE}}"
+         echo "${{env.GITHUB_PRIVATE_KEY_OFFSHORE}}"
 
       - name: Start SSH Agent
         id: ssh-agent
