@@ -20,6 +20,7 @@ jobs:
       # Step 1: Configure SSH for Personal Repository
       - name: Add SSH Key for Personal Repo
         run: |
+          git config --global init.defaultBranch main
           mkdir -p ~/.ssh
           echo "${{ env.GITHUB_PRIVATE_KEY_PERSONAL }}" > ~/.ssh/id_rsa_personal
           chmod 600 ~/.ssh/id_rsa_personal
