@@ -11,6 +11,7 @@ on:
 env:
   GITHUB_PRIVATE_KEY_PERSONAL: ${{ secrets.PERSONAL_PVT_KEY }}
   GITHUB_PRIVATE_KEY_OFFSHORE: ${{ secrets.OFFSHORE_PVT_KEY }}
+  GITHUB_PERSONAL_REPO_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
 
 jobs:
   sync-branches:
@@ -18,20 +19,12 @@ jobs:
 
     steps:
       # Step 1: Configure SSH for Personal Repository
-      - name: Add SSH Key for Personal Repo
-        run: |
-          git config --global init.defaultBranch main
-          mkdir -p ~/.ssh
-          echo "${{ env.GITHUB_PRIVATE_KEY_PERSONAL }}" > ~/.ssh/id_rsa_personal
-          chmod 600 ~/.ssh/id_rsa_personal
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-
       - name: Checkout Personal Repository
         uses: actions/checkout@v3
         with:
           repository: aravinthsridhar/dta-automation.git
           ref: ${{ github.event.inputs.branch }}
-          ssh-key: ${{ env.GITHUB_PRIVATE_KEY_PERSONAL }}
+          token: ${{ env.GITHUB_PERSONAL_REPO_TOKEN }}
 
       # Step 2: Configure SSH for Offshore Repository
       - name: Add SSH Key for Offshore Repo
