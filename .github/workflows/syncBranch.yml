@@ -34,9 +34,14 @@ jobs:
       - name: Add SSH Key and Configure
         run: |
          mkdir -p ~/.ssh
-         echo "${{ secrets.GITHUB_PRIVATE_KEY_OFFSHORE }}" > ~/.ssh/id_rsa_offshore
+         echo "${{ env.GITHUB_PRIVATE_KEY_OFFSHORE }}" | tr -d '\r' > ~/.ssh/id_rsa_offshore
+         echo ""
+         echo "Checking permissions of remote_key before"
+         ls -l ~/.ssh/id_rsa_offshore
+         echo "Changing permissions of remote_key"
          chmod 600 ~/.ssh/id_rsa_offshore
-         sed -i 's/\r//' ~/.ssh/id_rsa_offshore
+         echo "Checking permissions of remote_key after the change"
+         ls -l ~/.ssh/id_rsa_offshore
          eval "$(ssh-agent -s)"
          ssh-add ~/.ssh/id_rsa_offshore
          ssh-keyscan github.com >> ~/.ssh/known_hosts
