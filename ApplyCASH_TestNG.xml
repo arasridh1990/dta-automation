@@ -6,4 +6,4 @@
 			<class name="com.ehs.dta.ApplyCASH" />
 		</classes>
 	</test> <!-- Test -->
-</suite> <!-- Suite --> <!-- Test comment -->
+</suite> <!-- Suite --> 
