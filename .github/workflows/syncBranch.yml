@@ -9,7 +9,7 @@ on:
         default: "odc_sample" # Default branch name to sync
 
 env:
-  GITHUB_PRIVATE_KEY_PERSONAL: ${{ secrets.PERSONAL_PVT_KEY }}
+  GITHUB_PRIVATE_KEY_PERSONAL: ${{ secrets.PERSONAL_TOKEN }}
   GITHUB_PRIVATE_KEY_OFFSHORE: ${{ secrets.OFFSHORE_PVT_KEY }}
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
         with:
           repository: aravinthsridhar/dta-automation.git
           ref: ${{ github.event.inputs.branch }}
-          ssh-key: ${{ env.GITHUB_PRIVATE_KEY_PERSONAL }}
+          token: ${{ env.GITHUB_PRIVATE_KEY_PERSONAL }}
           
       - name: Add Offshore Repository as Remote
         run: |
