@@ -56,10 +56,6 @@ jobs:
          echo "${{ env.GITHUB_PRIVATE_KEY_OFFSHORE }}" | tr -d '\r' | ssh-add -
          echo "Add the private key Complete"
          ssh-keyscan github.com >> ~/.ssh/known_hosts
-
-      - name: Test SSH Authentication
-        id: test-ssh-auth
-        run: ssh -tt ~/.ssh/id_rsa_offshore -o StrictHostKeyChecking=no git@github.com
         
       - name: Add Offshore Repository as Remote
         id: add-offshore-remote
