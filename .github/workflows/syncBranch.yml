@@ -12,7 +12,7 @@ env:
   GITHUB_PRIVATE_KEY_PERSONAL: ${{ secrets.PERSONAL_PVT_KEY }}
   GITHUB_PRIVATE_KEY_OFFSHORE: ${{ secrets.OFFSHORE_PVT_KEY }}
   GITHUB_PERSONAL_REPO_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
-  GIHUB_PASSPAHRASE: $ {{ secrets.PASSPHRASE }}
+  GIHUB_PASSPAHRASE: ${{ secrets.PASSPHRASE }}
 
 jobs:
   sync-branches:
@@ -40,25 +40,17 @@ jobs:
          mkdir -p ~/.ssh
          chmod 700 ~/.ssh
          echo "${{ env.GITHUB_PRIVATE_KEY_OFFSHORE }}" | tr -d '\r' > ~/.ssh/id_rsa_offshore
-         echo ""
-         echo "Checking permissions of remote_key before"
-         ls -l ~/.ssh/id_rsa_offshore
-         echo "Changing permissions of remote_key"
-         chmod 700 ~/.ssh/id_rsa_offshore
-         echo "Checking permissions of remote_key after the change"
-         ls -l ~/.ssh/id_rsa_offshore
-      
-      - name: Start SSH Agent
-        id: ssh-agent
-        run: |
+         chmod 600 ~/.ssh/id_rsa_offshore
          eval "$(ssh-agent -s)"
-         echo "Add the private key"
-         echo "${{ env.GITHUB_PRIVATE_KEY_OFFSHORE }}" | tr -d '\r' | ssh-add -
-         echo "Add the private key Complete"
+         ssh-add ~/.ssh/id_rsa_offshore
          ssh-keyscan github.com >> ~/.ssh/known_hosts
-         ssh -T git@github.com || (echo "SSH authentication failed" && exit 1)
-         git remote add dest git@github.com:kyybatech/repo_connect_automation.git
-         git fetch dest || (echo "Failed to fetch from remote repository" && exit 1)
+         echo "SSH authentication succeeded."
+
+      - name: Configure Git Remote
+        run: |
+          git config --global init.defaultBranch master
+          git remote add dest git@github.com:kyybatech/repo_connect_automation.git
+          git fetch dest || (echo "Failed to fetch from remote repository" && exit 1)
         
       # Step 3: Detect Merge Conflicts
       - name: Merge Changes
