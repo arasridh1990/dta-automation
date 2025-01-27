@@ -31,13 +31,18 @@ jobs:
           token: ${{ env.GITHUB_PERSONAL_REPO_TOKEN }}
 
       # Step 2: Configure SSH for Offshore Repository
-      - name: Add SSH Key for Offshore Repo
+      - name: Add SSH Key and Configure
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ env.GITHUB_PRIVATE_KEY_OFFSHORE }}" > ~/.ssh/id_rsa_offshore
-          chmod 600 ~/.ssh/id_rsa_offshore
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
+         mkdir -p ~/.ssh
+         echo "${{ secrets.GITHUB_PRIVATE_KEY_OFFSHORE }}" > ~/.ssh/id_rsa_offshore
+         chmod 600 ~/.ssh/id_rsa_offshore
+         eval "$(ssh-agent -s)"
+         ssh-add ~/.ssh/id_rsa_offshore
+         ssh-keyscan github.com >> ~/.ssh/known_hosts
 
+      - name: Test SSH Authentication
+        run: ssh -i ~/.ssh/id_rsa_offshore -o StrictHostKeyChecking=no git@github.com
+        
       - name: Add Offshore Repository as Remote
         run: |
           git remote add dest git@github.com:kyybatech/repo_connect_automation.git
