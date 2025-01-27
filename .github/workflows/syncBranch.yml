@@ -12,6 +12,7 @@ env:
   GITHUB_PRIVATE_KEY_PERSONAL: ${{ secrets.PERSONAL_PVT_KEY }}
   GITHUB_PRIVATE_KEY_OFFSHORE: ${{ secrets.OFFSHORE_PVT_KEY }}
   GITHUB_PERSONAL_REPO_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+  GIHUB_PASSPAHRASE: $ {{ secrets.PASSPHRASE }}
 
 jobs:
   sync-branches:
@@ -34,6 +35,7 @@ jobs:
       - name: Add SSH Key and Configure
         run: |
          mkdir -p ~/.ssh
+         chmod 700 ~/.ssh
          echo "${{ env.GITHUB_PRIVATE_KEY_OFFSHORE }}" | tr -d '\r' > ~/.ssh/id_rsa_offshore
          echo ""
          echo "Checking permissions of remote_key before"
@@ -42,8 +44,13 @@ jobs:
          chmod 600 ~/.ssh/id_rsa_offshore
          echo "Checking permissions of remote_key after the change"
          ls -l ~/.ssh/id_rsa_offshore
+         echo 'echo ${{env.GIHUB_PASSPAHRASE}}' > ~/.ssh/passphrase && chmod 600 ~/.ssh/passphrase
+
+      - name: Start SSH Agent
+        run: |
          eval "$(ssh-agent -s)"
-         ssh-add ~/.ssh/id_rsa_offshore
+         echo "Add the private key"
+         cat ~/.ssh/id_rsa_offshore | tr -d '\r' | DISPLAY=None SSH_ASKPASS=~/.ssh/passphrase ssh-add -
          ssh-keyscan github.com >> ~/.ssh/known_hosts
 
       - name: Test SSH Authentication
