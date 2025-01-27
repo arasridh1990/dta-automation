@@ -44,19 +44,16 @@ jobs:
          echo "Checking permissions of remote_key before"
          ls -l ~/.ssh/id_rsa_offshore
          echo "Changing permissions of remote_key"
-         chmod 600 ~/.ssh/id_rsa_offshore
+         chmod 700 ~/.ssh/id_rsa_offshore
          echo "Checking permissions of remote_key after the change"
          ls -l ~/.ssh/id_rsa_offshore
-         echo 'echo ${{env.GIHUB_PASSPAHRASE}}' > ~/.ssh/passphrase && chmod 700 ~/.ssh/passphrase
-         echo "${{env.GIHUB_PASSPAHRASE}}"
-         echo "${{env.GITHUB_PRIVATE_KEY_OFFSHORE}}"
-
+      
       - name: Start SSH Agent
         id: ssh-agent
         run: |
          eval "$(ssh-agent -s)"
          echo "Add the private key"
-         cat ~/.ssh/id_rsa_offshore | tr -d '\r' | DISPLAY=None SSH_ASKPASS=~/.ssh/passphrase ssh-add -
+         echo "${{ secrets.GITHUB_PRIVATE_KEY_OFFSHORE }}" | ssh-add -
          echo "Add the private key Complete"
          ssh-keyscan github.com >> ~/.ssh/known_hosts
 
