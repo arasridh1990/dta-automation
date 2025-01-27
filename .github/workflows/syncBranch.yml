@@ -33,6 +33,7 @@ jobs:
       # Step 2: Configure SSH for Offshore Repository
       - name: Add SSH Key for Offshore Repo
         run: |
+          mkdir -p ~/.ssh
           echo "${{ env.GITHUB_PRIVATE_KEY_OFFSHORE }}" > ~/.ssh/id_rsa_offshore
           chmod 600 ~/.ssh/id_rsa_offshore
           ssh-keyscan github.com >> ~/.ssh/known_hosts
