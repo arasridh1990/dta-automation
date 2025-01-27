@@ -7,18 +7,7 @@ import com.framework.helpers.BaseClass;
 public class ApplyINTERIM_REPORT extends BaseClass {
 
 	@Test
-	public void INTERIMApplyTC1() {
-		ts_INTREP.Interim_REPORT_YES_TC();
+	public void REPORT_Interim() {
+		ts_INTREP.Interim_REPORT();
 	}
-	@Test
-	public void INTERIMApplyTC2() {
-		 ts_INTREP.Interim_REPORT_NO_TC();
-	}
-	
-	@Test
-	public void INTERIMApplyTC3() {
-		 ts_INTREP.Interim_REPORT_LANG();
-	}
-	
-	
 }

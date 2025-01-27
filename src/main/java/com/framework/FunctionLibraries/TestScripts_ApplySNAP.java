@@ -44,11 +44,11 @@ public class TestScripts_ApplySNAP extends BaseClass {
 	 * @author Santhosh Karra
 	 */
 
-	public void ApplySNAP_YES_TC() {
+	public void ApplySNAP() {
 
 		snap.launchURL(initializer.GetValue("app.url"));
-		initializer.infoCall("SNAP YES HAPPY PATH TC___________________.");
 		// snap.app_Down();
+
 		snap.applySNAPButton();
 		// *********************How does applying work---Before you
 		// start**********************************************************************************************
@@ -64,25 +64,20 @@ public class TestScripts_ApplySNAP extends BaseClass {
 		snap.noSSN_Option();
 		snap.continue_Option();
 
-		// *********************My contact
-		// info*******************************************************************************************************************************
+		// *********************About
+		// me*******************************************************************************************************************************
 		snap.no_Option();
 		snap.continue_Option();
+
 		snap.myContactInfo_Address_Phone_ValidationMsg();
-		snap.myContactInfo_Email_ValidationMsg();
+		snap.phone_MyContactInfo();
 		snap.myContactInfo_AddressZipCode_ValidationMsg();
 		snap.address();
-		
 		snap.no_MailAddress_MyContactInfo();
-		snap.myContactInfo_MailAddressEmail_ValidationMsg();
-		snap.myContactInfo_MailAddressZipCode_ValidationMsg();
-		snap.mail_address();
-		
+		snap.mailAddress_MyContactInfo();
 		snap.email_MyContactInfo();
-		snap.phone_MyContactInfo();
 		snap.continue_Option();
-        //***********************Emergency
-		//snap benefits************************************************************************************************************************
+
 		snap.emergencyFSBenefits_Lesshouseexp_No();
 		snap.emergencyFSBenefits_LessMonthlyIncome_Yes();
 		snap.emergencyFSBenefits_MigrantWorker_Yes();
@@ -100,7 +95,7 @@ public class TestScripts_ApplySNAP extends BaseClass {
 		snap.four_Option();
 		snap.continue_Option();
 
-		snap.firstLast_Name1();
+		snap.firstLast_Name();
 		snap.son_AboutMember();
 		snap.dateOfBirth_Minor();
 		snap.male_Option();
@@ -108,15 +103,15 @@ public class TestScripts_ApplySNAP extends BaseClass {
 		snap.noSSN_Option();
 		snap.continue_Option();
 
-		snap.firstLast_Name2();
+		snap.firstLast_Name();
 		snap.daughter_AboutMember();
-		snap.dateOfBirth_Major();
+		snap.dateOfBirth_Minor();
 		snap.female_Option();
 		snap.yes_Option();
 		snap.sSN_Option();
 		snap.continue_Option();
 
-		snap.firstLast_Name3();
+		snap.firstLast_Name();
 		snap.grandfather_AboutMember();
 		snap.dateOfBirth_Senior();
 		snap.male_Option();
@@ -200,93 +195,6 @@ public class TestScripts_ApplySNAP extends BaseClass {
 
 		snap.signSubmitValidationMsg();
 		snap.signSubmit();
-
-	}
-	public void ApplySNAP_NO_TC() {
-
-		snap.launchURL(initializer.GetValue("app.url"));
-		// snap.app_Down();
-		initializer.infoCall("SNAP NO TC___________________.");
-		snap.applySNAPButton();
-		// *********************How does applying work---Before you
-		// start**********************************************************************************************
-		snap.handyDocs_BeforeYouStart();
-		snap.continue_Option();
-		// *********************About
-		// me*******************************************************************************************************************************
-		snap.firstLast_Name();
-		snap.dateOfBirth_Major();
-		snap.continue_Option();
-
-		// *********************My contact
-		// info*******************************************************************************************************************************
-		snap.no_Option();
-		snap.continue_Option();
-		snap.address();
-		
-		snap.no_MailAddress_MyContactInfo();
-		snap.mail_address();
-		
-		snap.email_MyContactInfo();
-		snap.phone_MyContactInfo();
-		snap.continue_Option();
-        //***********************Emergency
-		//snap benefits************************************************************************************************************************
-		snap.continue_Option();
-
-		snap.continue_Option();
-
-		snap.continue_Option();
-
-		snap.one_Option();
-		snap.continue_Option();
-		snap.continue_Option();
-		snap.noOne_Option();
-		snap.continue_Option();
-		snap.continue_Option();
-		snap.continue_Option();
-		snap.continue_Option();
-		snap.continue_Option();
-		snap.continue_Option();
-		snap.signSubmit();
-
-	}
-	public void ApplySNAP_LANG_TC() {
-
-		snap.launchURL(initializer.GetValue("app.url"));
-		// snap.app_Down();
-		initializer.infoCall("SNAP LANG TC___________________.");
-		snap.languageSelect();
-		snap.applySNAPButton_es();
-		snap.continue_Option();
-		snap.firstLast_Name();
-		snap.dateOfBirth_Major();
-		snap.continue_Option();
-
-		snap.no_Option();
-		snap.continue_Option();
-		snap.address();
-		
-		snap.email_MyContactInfo();
-		snap.phone_MyContactInfo();
-		snap.continue_Option();
-        snap.continue_Option();
-
-		snap.continue_Option();
-
-		snap.continue_Option();
-
-		snap.one_Option();
-		snap.continue_Option();
-		snap.continue_Option();
-		snap.noOne_Option();
-		snap.continue_Option();
-		snap.continue_Option();
-		snap.continue_Option();
-		snap.continue_Option();
-		snap.continue_Option();
-		snap.continue_Option();
-		snap.signSubmit_ES();
 
 	}
 	public void SNAP_Eligibility() {

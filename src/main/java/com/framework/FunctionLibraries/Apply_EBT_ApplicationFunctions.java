@@ -359,10 +359,6 @@ public class Apply_EBT_ApplicationFunctions {
 	
 //	*********************Apply EBT Application! Generic methods************************************************************************************************************
 
-	public String getPebtData(String param) {
-		return commonFunctions.getTestData(stage.getTestName(), param, "file.pebtDataFilePath");
-	}
-	
 	public void app_Down() {
 
 		try {
@@ -410,7 +406,7 @@ public class Apply_EBT_ApplicationFunctions {
 	public void enter_ebt() {
 		try {
 			initializer.wait(2);
-			commonFunctions.getElement(driver, "ebt.casenumber").sendKeys(getPebtData("Cardnumber"));
+			commonFunctions.getElement(driver, "ebt.casenumber").sendKeys("43804347");
 			initializer.successCallwithSnapShot("'Check P-EBT Case Information' is verified successfully");
 			String title = commonFunctions.getElement(driver, "ebt.card.title").getText();
 			initializer.successCallwithSnapShot("Navigate to '" + title + "' page successfully");
@@ -540,8 +536,8 @@ public class Apply_EBT_ApplicationFunctions {
 
 	public void first_Last_Name() {
 		try {
-			commonFunctions.getElement(driver, "ebt.fname").sendKeys(getPebtData("FName"));
-			commonFunctions.getElement(driver, "ebt.lname").sendKeys(getPebtData("LName"));
+			commonFunctions.getElement(driver, "ebt.fname").sendKeys(getName());
+			commonFunctions.getElement(driver, "ebt.lname").sendKeys(getName());
 			initializer.wait(2);
 			initializer.infoCall("Enter First name and Last name successfully.");
 		} catch (Exception e) {
@@ -552,8 +548,8 @@ public class Apply_EBT_ApplicationFunctions {
 	
 	public void first_Last_Name1() {
 		try {
-			commonFunctions.getElement(driver, "ebt.fname").sendKeys(getPebtData("FName1"));
-			commonFunctions.getElement(driver, "ebt.lname").sendKeys(getPebtData("LName1"));
+			commonFunctions.getElement(driver, "ebt.fname").sendKeys("JUELZ");
+			commonFunctions.getElement(driver, "ebt.lname").sendKeys("GONZALEZ");
 			initializer.wait(2);
 			initializer.infoCall("Enter First name and Last name successfully.");
 		} catch (Exception e) {
@@ -564,7 +560,7 @@ public class Apply_EBT_ApplicationFunctions {
 	
 	public void middle_Name() {
 		try {
-			commonFunctions.getElement(driver, "ebt.mname").sendKeys(getPebtData("MName"));
+			commonFunctions.getElement(driver, "ebt.mname").sendKeys(getName());
 			initializer.infoCall("Enter middle name successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "ebt.card.title").getText();
@@ -574,7 +570,7 @@ public class Apply_EBT_ApplicationFunctions {
 	
 	public void middle_Name1 () {
 		try {
-			commonFunctions.getElement(driver, "ebt.mname").sendKeys(getPebtData("MName1"));
+			commonFunctions.getElement(driver, "ebt.mname").sendKeys("C");
 			initializer.infoCall("Enter middle name successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "ebt.card.title").getText();
@@ -584,9 +580,9 @@ public class Apply_EBT_ApplicationFunctions {
 	
 	public void dateOfBirth_Minor() {
 		try {
-			commonFunctions.getElement(driver, "ebt.day").sendKeys(getPebtData("Day"));
-			selectDropDown(commonFunctions.getElement(driver, "ebt.month"), getPebtData("Month"));
-			commonFunctions.getElement(driver, "ebt.year").sendKeys(getPebtData("Year"));
+			commonFunctions.getElement(driver, "ebt.day").sendKeys(getDay());
+			selectDropDown(commonFunctions.getElement(driver, "ebt.month"), getMonth());
+			commonFunctions.getElement(driver, "ebt.year").sendKeys(getMinorYear());
 			initializer.infoCall("Enter date of birth under minor group age.");
 			initializer.wait(2);
 		} catch (Exception e) {
@@ -597,9 +593,9 @@ public class Apply_EBT_ApplicationFunctions {
 	
 	public void dateOfBirth_Minor1() {
 		try {
-			commonFunctions.getElement(driver, "ebt.day").sendKeys(getPebtData("Day1"));
-			selectDropDown(commonFunctions.getElement(driver, "ebt.month"), getPebtData("Month1"));
-			commonFunctions.getElement(driver, "ebt.year").sendKeys(getPebtData("Year1"));
+			commonFunctions.getElement(driver, "ebt.day").sendKeys("17");
+			selectDropDown(commonFunctions.getElement(driver, "ebt.month"), "DECEMBER");
+			commonFunctions.getElement(driver, "ebt.year").sendKeys("2011");
 			initializer.infoCall("Enter date of birth under minor group age.");
 			initializer.wait(2);
 		} catch (Exception e) {
@@ -662,10 +658,10 @@ public class Apply_EBT_ApplicationFunctions {
 			commonFunctions.getElement(driver, "ebt.street").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME));
 			commonFunctions.getElement(driver, "ebt.street").sendKeys(Keys.DELETE);
 			initializer.wait(2);
-			commonFunctions.getElement(driver, "ebt.street").sendKeys(getPebtData("StreetName"));
+			commonFunctions.getElement(driver, "ebt.street").sendKeys(getStreetName());
 			commonFunctions.getElement(driver, "ebt.zip").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME));
 			commonFunctions.getElement(driver, "ebt.zip").sendKeys(Keys.DELETE);
-			commonFunctions.getElement(driver, "ebt.zip").sendKeys(getPebtData("Zipcode"));
+			commonFunctions.getElement(driver, "ebt.zip").sendKeys(getZipCode());
 			commonFunctions.getElement(driver, "ebt.state").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME));
 			commonFunctions.getElement(driver, "ebt.state").sendKeys(Keys.DELETE);
 			commonFunctions.getElement(driver, "ebt.state").sendKeys("MA");
@@ -681,10 +677,11 @@ public class Apply_EBT_ApplicationFunctions {
 		try {
 			commonFunctions.getElement(driver, "ebt.street").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME));
 			commonFunctions.getElement(driver, "ebt.street").sendKeys(Keys.DELETE);
-			commonFunctions.getElement(driver, "ebt.street").sendKeys(getPebtData("StreetName1"));
+			initializer.wait(2);
+			commonFunctions.getElement(driver, "ebt.street").sendKeys("65 OAK POND AV");
 			commonFunctions.getElement(driver, "ebt.zip").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME));
 			commonFunctions.getElement(driver, "ebt.zip").sendKeys(Keys.DELETE);
-			commonFunctions.getElement(driver, "ebt.zip").sendKeys(getPebtData("Zipcode1"));
+			commonFunctions.getElement(driver, "ebt.zip").sendKeys("01527");
 			commonFunctions.getElement(driver, "ebt.state").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME));
 			commonFunctions.getElement(driver, "ebt.state").sendKeys(Keys.DELETE);
 			commonFunctions.getElement(driver, "ebt.state").sendKeys("MA");
@@ -697,9 +694,10 @@ public class Apply_EBT_ApplicationFunctions {
 	}
 	public void phone() {
 		try {
+			String phone = getPhoneNumber();
 			commonFunctions.getElement(driver, "ebt.phone").clear();
-			commonFunctions.getElement(driver, "ebt.phone").sendKeys(getPebtData("Phone"));
-			initializer.infoCall("Entered phone number successfully");
+			commonFunctions.getElement(driver, "ebt.phone").sendKeys(phone);
+			initializer.infoCall("Enter phone number :" + phone + " successfully");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "ebt.card.title").getText();
 			initializer.failureCallwithException("Exception occured in '"+title+"' Page", e);
@@ -709,9 +707,10 @@ public class Apply_EBT_ApplicationFunctions {
 	
 	public void phone1() {
 		try {
+			String phone = "0152701611";
 			commonFunctions.getElement(driver, "ebt.phone").clear();
-			commonFunctions.getElement(driver, "ebt.phone").sendKeys(getPebtData("Phone1"));
-			initializer.infoCall("Entered phone number successfully");
+			commonFunctions.getElement(driver, "ebt.phone").sendKeys(phone);
+			initializer.infoCall("Enter phone number :" + phone + " successfully");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "ebt.card.title").getText();
 			initializer.failureCallwithException("Exception occured in '"+title+"' Page", e);
@@ -755,26 +754,6 @@ public class Apply_EBT_ApplicationFunctions {
 			commonFunctions.getElement(driver, "ebt.message.alert.no").click();
 			initializer.wait(2);
 			initializer.infoCall("Select option as 'No' successfully");
-		} catch (Exception e) {
-			String title = commonFunctions.getElement(driver, "ebt.card.title").getText();
-			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
-		}
-	}
-	
-	public void childcasenumber() {
-		try {
-			commonFunctions.getElement(driver, "ebt.childcasenumber").sendKeys(getPebtData("Casenumber"));
-			initializer.infoCall("Enter child case number successfully.");
-		} catch (Exception e) {
-			String title = commonFunctions.getElement(driver, "ebt.card.title").getText();
-			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
-		}
-	}
-	
-	public void childcasenumber1() {
-		try {
-			commonFunctions.getElement(driver, "ebt.childcasenumber").sendKeys(getPebtData("Casenumber1"));
-			initializer.infoCall("Enter child case number successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "ebt.card.title").getText();
 			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);

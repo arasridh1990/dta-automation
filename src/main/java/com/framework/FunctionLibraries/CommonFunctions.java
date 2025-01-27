@@ -22,9 +22,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.ITestResult;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -124,6 +122,7 @@ public class CommonFunctions {
 
 		String propertyValue = initializer.GetValue(propertyName).trim();
 		String propertyType = initializer.GetType(propertyName).trim();
+
 		try {
 			switch (propertyType.toUpperCase()) {
 			case "NAME":
@@ -364,12 +363,12 @@ public class CommonFunctions {
 	 * @return Returns the data for the parameter passed
 	 * @author Santhosh Karra
 	 */
-	public String getTestData(String TestName, String strParam, String filePath) {
+	public String getTestData(String TestName, String strParam) {
 		String testDataParam = null;
 		DocumentBuilder dBuilder = null;
 		Document doc = null;
 		Node node = null;
-		File fXmlFile = new File(System.getProperty("user.dir") + initializer.GetValue(filePath));
+		File fXmlFile = new File(System.getProperty("user.dir") + initializer.GetValue("file.testDataFilePath"));
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		try {
 			dBuilder = dbFactory.newDocumentBuilder();

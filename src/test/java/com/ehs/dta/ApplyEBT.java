@@ -13,7 +13,7 @@ public class ApplyEBT extends BaseClass {
 	 */
 
 	@Test
-	public void EBTApply() {
+	public void EBT_Apply() {
 		ts_EBT.Apply_EBT();
 	}
 }

@@ -251,7 +251,7 @@ public class Apply_CASH_ApplicationFunctions {
 	String addressvalidation = "Please enter a valid address";
 	String phonevalidation = "Please enter a valid phone number";
 	String selectoptionvalidation = "Please select an option below";
-	String emailvalidation = "Please enter a valid email";
+	String emailvalidation = "Please enter a valid email address";
 	String zipvalidation_tafdc = "This TAFDC application is for Massachussetts residents. If you live in Massachussetts, please enter your Zip Code. If you do not live in Massachussetts, you must apply in your state.";
 	String zipvalidation_eaedc = "This EAEDC application is for Massachussetts residents. If you live in Massachussetts, please enter your Zip Code. If you do not live in Massachussetts, you must apply in your state.";
 	String householdvalidation = "Please choose no. of household";
@@ -466,16 +466,6 @@ public class Apply_CASH_ApplicationFunctions {
 	/**
 	 * @author Santhosh Karra
 	 */
-	
-	/**
-	 * 
-	 * @author Kishore B
-	 * @return Test data file path reference
-	 */
-	public String getCashData(String param) {
-		return commonFunctions.getTestData(stage.getTestName(), param, "file.cashDataFilePath");
-	}
-	
 	public void app_Down() {
 
 		try {
@@ -507,19 +497,7 @@ public class Apply_CASH_ApplicationFunctions {
 			initializer.failureCallwithException("Exception occured in 'DTA Connect home' Page", e);
 		}
 	}
-	public void applyTAFDCButton_ES() {
-		try {
-			initializer.wait(2);
-			commonFunctions.getElement(driver, "cash.applyTAFDC.es").click();
-			initializer.infoCall("Clicking 'Apply TAFDC!' button sucessfully.");
-			initializer.wait(2);
-			initializer.successCallwithSnapShot("'Apply TAFDC!' application is launched successfully");
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.successCallwithSnapShot("Navigate to '" + title + "' page successfully");
-		} catch (Exception e) {
-			initializer.failureCallwithException("Exception occured in 'DTA Connect home' Page", e);
-		}
-	}
+
 	/**
 	 * @author Santhosh Karra
 	 */
@@ -536,19 +514,7 @@ public class Apply_CASH_ApplicationFunctions {
 			initializer.failureCallwithException("Exception occured in 'DTA Connect home' Page", e);
 		}
 	}
-	public void applyEAEDCButton_ES() {
-		try {
-			initializer.wait(2);
-			commonFunctions.getElement(driver, "cash.applyEAEDC.es").click();
-			initializer.infoCall("Clicking 'Apply EAEDC!' button sucessfully.");
-			initializer.wait(2);
-			initializer.successCallwithSnapShot("'Apply EAEDC!' application is launched successfully");
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.successCallwithSnapShot("Navigate to '" + title + "' page successfully");
-		} catch (Exception e) {
-			initializer.failureCallwithException("Exception occured in 'DTA Connect home' Page", e);
-		}
-	}
+
 	/**
 	 * @author Santhosh Karra
 	 */
@@ -818,16 +784,7 @@ public class Apply_CASH_ApplicationFunctions {
 			initializer.failureCallwithException("Exception occured in '" + title1 + "' Page.", e);
 		}
 	}
-	public void languageSelect() {
-		try {
-			initializer.wait(5);
-			selectDropDown(commonFunctions.getElement(driver, "language.select"), getCashData("Language"));
-			initializer.infoCall("Language selected sucessfully.");
-			initializer.wait(5);
-			} catch (Exception e) {
-			initializer.failureCallwithException("Exception occured in 'DTA Connect home' Page", e);
-		}
-	}
+
 	/**
 	 * @author Santhosh Karra
 	 */
@@ -1050,10 +1007,10 @@ public class Apply_CASH_ApplicationFunctions {
 	 */
 	public void firstLast_Name() {
 		try {
-			String fname = getCashData("FName");
-			String lname = getCashData("LName");
-			commonFunctions.getElement(driver, "household.fname").sendKeys(getCashData("FName"));
-			commonFunctions.getElement(driver, "household.lname").sendKeys(getCashData("LName"));
+			String fname = getName();
+			String lname = getName();
+			commonFunctions.getElement(driver, "household.fname").sendKeys(fname);
+			commonFunctions.getElement(driver, "household.lname").sendKeys(lname);
 			initializer.wait(2);
 			initializer.infoCall("Enter First name as '" + fname + "' successfully.");
 			initializer.infoCall("Enter Last name as '" + lname + "' successfully.");
@@ -1068,8 +1025,8 @@ public class Apply_CASH_ApplicationFunctions {
 	 */
 	public void middle_Name() {
 		try {
-			String mname = getCashData("MName");
-			commonFunctions.getElement(driver, "household.mname").sendKeys(getCashData("MName"));
+			String mname = getName();
+			commonFunctions.getElement(driver, "household.mname").sendKeys(mname);
 			initializer.infoCall("Enter Middle name as '" + mname + "' successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1229,7 +1186,7 @@ public class Apply_CASH_ApplicationFunctions {
 			commonFunctions.getElement(driver, "fs.email").clear();
 			String email = getEmail();
 			commonFunctions.getElement(driver, "fs.email").sendKeys(email);
-			initializer.infoCall("Enter client email address as " + email + " successfully.");
+			initializer.infoCall("Enter client emai address as " + email + " successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
 			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
@@ -1610,7 +1567,6 @@ public class Apply_CASH_ApplicationFunctions {
 	 */
 	public void ebt_TAFDC_Yes_Option() {
 		try {
-			initializer.wait(2);
 			commonFunctions.getElement(driver, "tafdc.ebt.yes").click();
 			initializer.wait(2);
 			initializer.infoCall("Select ebt option as 'YES' successfully.");
@@ -1707,9 +1663,9 @@ public class Apply_CASH_ApplicationFunctions {
 			initializer.wait(3);
 			initializer.successCallwithSnapShot("Client Agree and Signed successfully. ");
 			commonFunctions.getElement(driver, "generic.continue").click();
-			initializer.wait(10);
+			initializer.wait(3);
 			initializer.successCallwithSnapShot("Client submit the application successfully. ");
-			initializer.wait(5);
+			initializer.wait(3);
 			String myNumber = commonFunctions.getElement(driver, "cash.application").getText();
 			initializer.successCallwithSnapShot(myNumber);
 			initializer.wait(2);
@@ -1740,18 +1696,5 @@ public class Apply_CASH_ApplicationFunctions {
 
 		}
 	}
-	public void exit_ES() {
-		try {
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.successCallwithSnapShot("Displayed '" + title + "' page successfully.");
-			commonFunctions.getElement(driver, "cash.exit.es").click();
-			initializer.successCallwithSnapShot("Exit the application successfully. ");
 
-		} catch (Exception e) {
-
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
-
-		}
-	}
 }

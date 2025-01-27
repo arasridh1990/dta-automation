@@ -20,25 +20,20 @@ import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.framework.FunctionLibraries.Apply_CASH_ApplicationFunctions;
 import com.framework.FunctionLibraries.Apply_SNAP_ApplicationFunctions;
-import com.framework.FunctionLibraries.Apply_SUMMEREBT_ApplicationFunctions;
 import com.framework.FunctionLibraries.DTAConnect_ApplicationFunctions;
 import com.framework.FunctionLibraries.Apply_INTERIM_REPORT_ApplicationFunctions;
-import com.framework.FunctionLibraries.Apply_ProviderLOGIN_ApplicationFunctions;
 import com.framework.FunctionLibraries.Apply_EBT_ApplicationFunctions;
 import com.framework.FunctionLibraries.Apply_RECERT_ApplicationFunctions;
 import com.framework.FunctionLibraries.CommonFunctions;
-
-import com.framework.FunctionLibraries.Apply_COVID_RECERT_ApplicationFunctions;
+import com.framework.FunctionLibraries.Create_ONLINE_ApplicationFunctions;
 import com.framework.FunctionLibraries.DB;
 import com.framework.FunctionLibraries.TestScripts_ApplyCASH;
 import com.framework.FunctionLibraries.TestScripts_ApplySNAP;
-import com.framework.FunctionLibraries.TestScripts_ApplySUMMEREBT;
+import com.framework.FunctionLibraries.TestScripts_CreateONLINE;
 import com.framework.FunctionLibraries.TestScripts_DTAConnect;
 import com.framework.FunctionLibraries.TestScripts_ApplyINTERIMREPORT;
-import com.framework.FunctionLibraries.TestScripts_ApplyProviderLOGIN;
 import com.framework.FunctionLibraries.TestScripts_ApplyEBT;
 import com.framework.FunctionLibraries.TestScripts_ApplyRECERT;
-import com.framework.FunctionLibraries.TestScripts_ApplyCovidRECERT;
 import com.jacob.com.LibraryLoader;
 
 import autoitx4java.AutoItX;
@@ -69,20 +64,14 @@ public class BaseClass {
 	public Apply_EBT_ApplicationFunctions ebt = null;
 	public TestScripts_ApplyEBT ts_EBT = null;
 	
-	public Apply_SUMMEREBT_ApplicationFunctions sebt = null;
-	public TestScripts_ApplySUMMEREBT ts_SEBT = null;
-	
 	public Apply_INTERIM_REPORT_ApplicationFunctions intrep = null;
 	public TestScripts_ApplyINTERIMREPORT ts_INTREP = null;
 	
 	public Apply_RECERT_ApplicationFunctions recert = null;
 	public TestScripts_ApplyRECERT ts_RECERT = null;
 	
-	public Apply_ProviderLOGIN_ApplicationFunctions login = null;
-	public TestScripts_ApplyProviderLOGIN ts_LOGIN= null;
-	
-	public Apply_COVID_RECERT_ApplicationFunctions covidrecert = null;
-	public TestScripts_ApplyCovidRECERT ts_COVIDRECERT = null;
+	public Create_ONLINE_ApplicationFunctions online = null;
+	public TestScripts_CreateONLINE ts_ONLINE= null;
 	
 	public BaseClass() {
 	}
@@ -101,7 +90,6 @@ public class BaseClass {
 		System.setProperty("testenv", "QA");
 		System.setProperty("enableSnapshots", "NO");
 //		System.setProperty("Browser", "Firefox");
-//		System.setProperty("Browser", "IE");
       	System.setProperty("Browser", "chrome");
 		System.setProperty("suiteXmlFile", "ApplySNAP_TestNG.xml");
 
@@ -132,9 +120,6 @@ public class BaseClass {
 			
 			ebt = new Apply_EBT_ApplicationFunctions(commonFunctions, initializer, stage, dB);
 			ts_EBT = new TestScripts_ApplyEBT(commonFunctions, ebt, initializer, stage);
-			
-			sebt = new Apply_SUMMEREBT_ApplicationFunctions(commonFunctions, initializer, stage, dB);
-			ts_SEBT = new TestScripts_ApplySUMMEREBT (commonFunctions, sebt, initializer, stage);
            
 			intrep = new Apply_INTERIM_REPORT_ApplicationFunctions(commonFunctions, initializer, stage, dB);
 			ts_INTREP = new TestScripts_ApplyINTERIMREPORT(commonFunctions, intrep, initializer, stage);
@@ -142,11 +127,8 @@ public class BaseClass {
 			recert = new Apply_RECERT_ApplicationFunctions(commonFunctions, initializer, stage, dB);
 			ts_RECERT = new TestScripts_ApplyRECERT(commonFunctions, recert, initializer, stage);
 			
-			login = new Apply_ProviderLOGIN_ApplicationFunctions(commonFunctions, initializer, stage, dB);
-			ts_LOGIN = new TestScripts_ApplyProviderLOGIN(commonFunctions, login, initializer, stage);
-		
-			covidrecert = new Apply_COVID_RECERT_ApplicationFunctions(commonFunctions, initializer, stage, dB);
-			ts_COVIDRECERT = new TestScripts_ApplyCovidRECERT(commonFunctions, covidrecert, initializer, stage);
+			online = new Create_ONLINE_ApplicationFunctions(commonFunctions, initializer, stage, dB);
+			ts_ONLINE = new TestScripts_CreateONLINE(commonFunctions, online, initializer, stage);
 
 			// load props
 			initializer.loadProps();

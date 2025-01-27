@@ -627,11 +627,11 @@ public class DTAConnect_ApplicationFunctions {
 		try {
 
 			commonFunctions.getElement(driver, "account.online.day")
-					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountdate", "file.recertDataFilePath"));
+					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountdate"));
 			selectDropDown(commonFunctions.getElement(driver, "account.online.month"),
-					(commonFunctions.getTestData(stage.getTestName(), "Accountmonth", "file.recertDataFilePath")));
+					(commonFunctions.getTestData(stage.getTestName(), "Accountmonth")));
 			commonFunctions.getElement(driver, "account.online.year")
-					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountyear", "file.recertDataFilePath"));
+					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountyear"));
 			initializer.wait(2);
 			initializer.infoCall("Enter client date of birth successfuly.");
 		} catch (Exception e) {
@@ -690,14 +690,14 @@ public class DTAConnect_ApplicationFunctions {
 			initializer.successCallwithSnapShot("Enter/Select all '" + title + "' Page information successfully.");
 
 			commonFunctions.getElement(driver, "account.homebutton").click();
-			commonFunctions.getElement(driver, "account.email").sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountemail", "file.recertDataFilePath"));
-			commonFunctions.getElement(driver, "account.password").sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountpassword", "file.recertDataFilePath"));
-			commonFunctions.getElement(driver, "account.fname").sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountfname", "file.recertDataFilePath"));
-			commonFunctions.getElement(driver, "account.lname").sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountlname", "file.recertDataFilePath"));
-			commonFunctions.getElement(driver, "account.day").sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountdate", "file.recertDataFilePath"));
+			commonFunctions.getElement(driver, "account.email").sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountemail"));
+			commonFunctions.getElement(driver, "account.password").sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountpassword"));
+			commonFunctions.getElement(driver, "account.fname").sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountfname"));
+			commonFunctions.getElement(driver, "account.lname").sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountlname"));
+			commonFunctions.getElement(driver, "account.day").sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountdate"));
 			selectDropDown(commonFunctions.getElement(driver, "account.month"),
-			(commonFunctions.getTestData(stage.getTestName(), "Accountmonth", "file.recertDataFilePath")));
-			commonFunctions.getElement(driver, "account.year").sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountyear", "file.recertDataFilePath"));
+			(commonFunctions.getTestData(stage.getTestName(), "Accountmonth")));
+			commonFunctions.getElement(driver, "account.year").sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountyear"));
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Entered all required information successfully");
 			commonFunctions.getElement(driver, "account.creataccount").click();
@@ -713,9 +713,9 @@ public class DTAConnect_ApplicationFunctions {
 			initializer.wait(2);
 			commonFunctions.getElement(driver, "account.login").click();
 			commonFunctions.getElement(driver, "login.username")
-					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountemail", "file.recertDataFilePath"));
+					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountemail"));
 			commonFunctions.getElement(driver, "login.password")
-					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountpassword", "file.recertDataFilePath"));
+					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountpassword"));
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Entered User name and Password successfully");
 			commonFunctions.getElement(driver, "login.login").click();
@@ -727,7 +727,7 @@ public class DTAConnect_ApplicationFunctions {
 			commonFunctions.getElement(driver, "account.apid").click();
 			initializer.wait(2);
 			commonFunctions.getElement(driver, "account.textbox")
-					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Inputtext", "file.recertDataFilePath"));
+					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Inputtext"));
 			commonFunctions.getElement(driver, "account.connect").click();
 			initializer.wait(4);
 			initializer.successCallwithSnapShot("Your case is now linked to your DTA Connect account successfully");
@@ -744,9 +744,9 @@ public class DTAConnect_ApplicationFunctions {
 	public void loginApplication() {
 		try {
 			commonFunctions.getElement(driver, "login.username")
-					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountemail", "file.recertDataFilePath"));
+					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountemail"));
 			commonFunctions.getElement(driver, "login.password")
-					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountpassword", "file.recertDataFilePath"));
+					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Accountpassword"));
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Entered User name and Password successfully");
 			commonFunctions.getElement(driver, "login.login").click();

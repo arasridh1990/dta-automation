@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.Year;
+import java.lang.CharSequence;
 import java.util.Calendar;
 import java.util.Formatter;
 import java.util.HashMap;
@@ -249,7 +250,7 @@ public class Apply_INTERIM_REPORT_ApplicationFunctions {
 	String LSValidation = "Please enter last name";
 	String DOBValidation = "Please enter a valid date of birth";
 	
-	String emailvalidation = "Please enter a valid Email";
+	String emailvalidation = "Please enter your Email";
 	String passwordvalidation = "Please enter a password";
 	
 	String agreeValidation = "Please agree to the terms";
@@ -381,10 +382,24 @@ public class Apply_INTERIM_REPORT_ApplicationFunctions {
 		return SSN;
 	}
 	public String getEmailDev1() {
-		String email = "conconsumer2@eotss.odc";
+		String email = "dccmr_usr4@eotss-dev";
 		return email;
 	}
-		
+	
+	public String getEmailDev2() {
+		String email = "dccmr_usr1@eotss-dev";
+		return email;
+	}
+	
+	public String getEmailDevPvr() {
+		String email = "dcpvr@eotss-dev";
+		return email;
+	}
+	public String getEmailDevSpr() {
+		String email = "dccmr_usr1@eotss-dev";
+		return email;
+	}
+	
 	public String getPassword() {
 		String password = "Test@123";
 		return password;
@@ -404,10 +419,6 @@ public class Apply_INTERIM_REPORT_ApplicationFunctions {
 	}
 //	*********************Interim Report  Application! Generic methods************************************************************************************************************
 
-	public String getInterimData(String param) {
-		return commonFunctions.getTestData(stage.getTestName(), param, "file.interimDataFilePath");
-	}
-	
 	public void app_Down() {
 
 		try {
@@ -490,11 +501,11 @@ public class Apply_INTERIM_REPORT_ApplicationFunctions {
 
 	public void loginButton() {
 		try {
-			initializer.wait(5);
+			initializer.wait(2);
 			commonFunctions.getElement(driver, "login.homebutton").click();
 			initializer.infoCall("Clicking 'Login' button sucessfully.");
-			initializer.wait(5);
-			initializer.successCallwithSnapShot("'Login' application is launched successfully++++++++++++++++++");
+			initializer.wait(2);
+			initializer.successCallwithSnapShot("'Login' application is launched successfully");
 			String title = commonFunctions.getElement(driver, "login.title").getText();
 			initializer.successCallwithSnapShot("Navigate to '" + title + "' page successfully");
 		} catch (Exception e) {
@@ -521,7 +532,9 @@ public class Apply_INTERIM_REPORT_ApplicationFunctions {
 		try {
 			initializer.wait(2);
 			commonFunctions.getElement(driver, "generic.continue").click();
-			
+//			commonFunctions.getElement(driver, "login.email").sendKeys(getWrongEmail());
+//			commonFunctions.getElement(driver, "login.password").sendKeys(getWrongPassword());
+			try {
 				String email = commonFunctions.getElement(driver, "login.emailvalidation").getText();
 				String password  = commonFunctions.getElement(driver, "login.passwordvalidation").getText();
 				initializer.wait(2);
@@ -529,7 +542,9 @@ public class Apply_INTERIM_REPORT_ApplicationFunctions {
 				initializer.infoCall("Password Validation: " + password);
 				Assert.assertEquals(email, emailvalidation);
 				Assert.assertEquals(password, passwordvalidation);
-			
+			} catch (AssertionError e) {
+				initializer.failureCallwithExceptionAssertion("The Failed", e);
+			}
 			String title = commonFunctions.getElement(driver, "login.title").getText();
 			initializer.successCallwithSnapShot("All '" + title + "' Page Required fields validated successfully ");
 			initializer.wait(2);
@@ -572,32 +587,6 @@ public class Apply_INTERIM_REPORT_ApplicationFunctions {
 		initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
 	   }
 		
-	}
-public void spanishLanguage() {
-		
-		try {
-		    initializer.wait(10);
-		    commonFunctions.getElement(driver, "es.interim.start").click();
-		    initializer.infoCall("Clicking 'Comenzar el Informe provisional' button sucessfully.");
-		    initializer.wait(2);
-		    initializer.successCallwithSnapShot("'Comenzar el Informe provisional' is launched successfully");
-		    String title = commonFunctions.getElement(driver, "page.title").getText();
-		    initializer.successCallwithSnapShot("Navigate to '" + title + "' page successfully");
-	   } catch (Exception e) {
-		String title = commonFunctions.getElement(driver, "interim.title").getText();
-		initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
-	   }
-		
-	}
-	public void languageSelect() {
-		try {
-			initializer.wait(5);
-			selectDropDown(commonFunctions.getElement(driver, "language.select"), getInterimData("Language-Spanish"));
-			initializer.infoCall("Language selected sucessfully.");
-			initializer.wait(5);
-			} catch (Exception e) {
-			initializer.failureCallwithException("Exception occured in 'DTA Connect home' Page", e);
-		}
 	}
 // *************** Contact info **************
 	public void interimContact_Yes() {
@@ -665,13 +654,12 @@ public void spanishLanguage() {
 		}
 	}
 	
-	
 	public void interimPhone() {
 		try {
 			String phone = getPhoneNumber();
 			commonFunctions.getElement(driver, "interim.phone").clear();
 			initializer.wait(2);
-			commonFunctions.getElement(driver, "interim.phone").sendKeys(getInterimData("Phone"));
+			commonFunctions.getElement(driver, "interim.phone").sendKeys(phone);
 			initializer.infoCall("Enter phone number :" + phone + " successfully");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -727,9 +715,9 @@ public void spanishLanguage() {
 	public void email() {
 		try {
 			commonFunctions.getElement(driver, "interim.email").clear();
-			commonFunctions.getElement(driver, "interim.email").sendKeys("2010$#@%");
-			initializer.wait(2);
-			initializer.infoCall("Please enter a valid email address ");
+			String email = getEmail();
+			commonFunctions.getElement(driver, "interim.email").sendKeys(email);
+			initializer.infoCall("Enter client email address as " + email + " successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
 			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
@@ -739,8 +727,6 @@ public void spanishLanguage() {
 		try {
 			initializer.wait(2);
 			commonFunctions.getElement(driver, "interim.emailnotification.yes").click();
-			commonFunctions.getElement(driver, "generic.continue").click();
-			initializer.infoCall("Please enter a valid email address ");
 			initializer.wait(2);
 			initializer.infoCall("Select option as 'YES' successfully");
 		} catch (Exception e) {
@@ -749,17 +735,6 @@ public void spanishLanguage() {
 		}
 	}
 	
-	public void email1() {
-		try {
-			commonFunctions.getElement(driver, "interim.email").clear();
-			String email = getEmail();
-			commonFunctions.getElement(driver, "interim.email").sendKeys(email);
-			initializer.infoCall("Enter client email address as " + email + " successfully.");
-		} catch (Exception e) {
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
-		}
-	}
 	public void interim_email_notification_No() {
 		try {
 			initializer.wait(2);
@@ -848,8 +823,8 @@ public void spanishLanguage() {
 	
 	public void firstLast_Name() {
 		try {
-			commonFunctions.getElement(driver, "interim.fname").sendKeys(getInterimData("FName"));
-			commonFunctions.getElement(driver, "interim.lname").sendKeys(getInterimData("LName"));
+			commonFunctions.getElement(driver, "interim.fname").sendKeys("John");
+			commonFunctions.getElement(driver, "interim.lname").sendKeys("Carter");
 			initializer.wait(2);
 			initializer.infoCall("Enter First name and Last name successfully.");
 		} catch (Exception e) {
@@ -860,7 +835,7 @@ public void spanishLanguage() {
 	
 	public void middle_Name() {
 		try {
-			commonFunctions.getElement(driver, "interim.mname").sendKeys(getInterimData("MName"));
+			commonFunctions.getElement(driver, "interim.mname").sendKeys("X");
 			initializer.infoCall("Enter middle name successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -870,9 +845,9 @@ public void spanishLanguage() {
 	
 	public void dateOfBirth() {
 		try {
-			commonFunctions.getElement(driver, "interim.day").sendKeys(getInterimData("Day"));
-			selectDropDown(commonFunctions.getElement(driver, "interim.month"), getInterimData("Month"));
-			commonFunctions.getElement(driver, "interim.year").sendKeys(getInterimData("Year"));
+			commonFunctions.getElement(driver, "interim.day").sendKeys("7");
+			selectDropDown(commonFunctions.getElement(driver, "interim.month"), "July");
+			commonFunctions.getElement(driver, "interim.year").sendKeys("1992");
 			initializer.infoCall("Enter date of birth under senior group age.");
 			initializer.wait(2);
 		} catch (Exception e) {
@@ -906,7 +881,7 @@ public void spanishLanguage() {
 		try {
 			commonFunctions.getElement(driver, "interim.ssn").clear();
 			String SSN = getSSN();
-			commonFunctions.getElement(driver, "household.ssn").sendKeys(getInterimData("SSN"));
+			commonFunctions.getElement(driver, "household.ssn").sendKeys(SSN);
 			initializer.infoCall("Enter SSN number :" + SSN + " successfully");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1237,9 +1212,9 @@ public void spanishLanguage() {
 	
 	public void one_Amount1_Wages_Monthly() {
 		try {
-			commonFunctions.getElement(driver, "interim.wages.employer1").sendKeys(getInterimData("Wagesmonthlyname1"));
-			commonFunctions.getElement(driver, "interim.wages.frequency1").sendKeys(getInterimData("Wagesmonthlyfrequency1"));
-			commonFunctions.getElement(driver, "interim.wages.amount1").sendKeys(getInterimData("Wagesmonthlyamount1"));
+			commonFunctions.getElement(driver, "interim.wages.employer1").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.wages.frequency1").sendKeys("Monthly");
+			commonFunctions.getElement(driver, "interim.wages.amount1").sendKeys(getAmount());
 			initializer.successCallwithSnapShot("Amount monthly enter successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1249,9 +1224,10 @@ public void spanishLanguage() {
 	
 	public void one_Amount1_Wages_Quarterly() {
 		try {
-			commonFunctions.getElement(driver, "interim.wages.employer1").sendKeys(getInterimData("Wagesquarterlyname1"));
-			commonFunctions.getElement(driver, "interim.wages.frequency1").sendKeys(getInterimData("Wagesquarterlyfrequency1"));
-			commonFunctions.getElement(driver, "interim.wages.amount1").sendKeys(getInterimData("Wagesquarterlyamount1"));
+			commonFunctions.getElement(driver, "interim.wages.employer1").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.wages.amount1").sendKeys(getAmount());
+			commonFunctions.getElement(driver, "interim.wages.frequency1").sendKeys("Quarterly");
+			commonFunctions.getElement(driver, "interim.wages.amount1").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount per quarterly enter successfully.");
 		} catch (Exception e) {
@@ -1262,9 +1238,9 @@ public void spanishLanguage() {
 
 	public void one_Amount1_Wages_Weekly() {
 		try {
-			commonFunctions.getElement(driver, "interim.wages.employer1").sendKeys(getInterimData("Wagesweeklyname1"));
-			commonFunctions.getElement(driver, "interim.wages.frequency1").sendKeys(getInterimData("Wagesweeklyfrequency1"));
-			commonFunctions.getElement(driver, "interim.wages.amount1").sendKeys(getInterimData("Wagesweeklyamount1"));
+			commonFunctions.getElement(driver, "interim.wages.employer1").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.wages.frequency1").sendKeys("Weekly");
+			commonFunctions.getElement(driver, "interim.wages.amount1").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount weekly enter successfully.");
 		} catch (Exception e) {
@@ -1275,9 +1251,9 @@ public void spanishLanguage() {
 
 	public void one_Amount2_Wages_Monthly() {
 		try {
-			commonFunctions.getElement(driver, "interim.wages.employer2").sendKeys(getInterimData("Wagesmonthlyname2"));
-			commonFunctions.getElement(driver, "interim.wages.frequency2").sendKeys(getInterimData("Wagesmonthlyfrequency2"));
-			commonFunctions.getElement(driver, "interim.wages.amount2").sendKeys(getInterimData("Wagesmonthlyamount2"));
+			commonFunctions.getElement(driver, "interim.wages.employer2").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.wages.frequency2").sendKeys("Monthly");
+			commonFunctions.getElement(driver, "interim.wages.amount2").sendKeys(getAmount());
 			initializer.successCallwithSnapShot("Amount monthly enter successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1287,9 +1263,9 @@ public void spanishLanguage() {
 
 	public void one_Amount2_Wages_Quarterly() {
 		try {
-			commonFunctions.getElement(driver, "interim.wages.employer2").sendKeys(getInterimData("Wagesquarterlyname2"));
-			commonFunctions.getElement(driver, "interim.wages.frequency2").sendKeys(getInterimData("Wagesquarterlyfrequency2"));
-			commonFunctions.getElement(driver, "interim.wages.amount2").sendKeys(getInterimData("Wagesquarterlyamount2"));
+			commonFunctions.getElement(driver, "interim.wages.employer2").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.wages.frequency2").sendKeys("Quarterly");
+			commonFunctions.getElement(driver, "interim.wages.amount2").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount per quarterly enter successfully.");
 		} catch (Exception e) {
@@ -1300,9 +1276,9 @@ public void spanishLanguage() {
 
 	public void one_Amount2_Wages_Weekly() {
 		try {
-			commonFunctions.getElement(driver, "interim.wages.employer2").sendKeys(getInterimData("Wagesweeklyname2"));
-			commonFunctions.getElement(driver, "interim.wages.frequency2").sendKeys(getInterimData("Wagesweeklyfrequency2"));
-			commonFunctions.getElement(driver, "interim.wages.amount2").sendKeys(getInterimData("Wagesweeklyamount2"));
+			commonFunctions.getElement(driver, "interim.wages.employer2").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.wages.frequency2").sendKeys("Weekly");
+			commonFunctions.getElement(driver, "interim.wages.amount2").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  weekly enter successfully.");
 		} catch (Exception e) {
@@ -1313,9 +1289,9 @@ public void spanishLanguage() {
 
 	public void one_Amount3_Wages_Monthly() {
 		try {
-			commonFunctions.getElement(driver, "interim.wages.employer2").sendKeys(getInterimData("Wagesmonthlyname3"));
-			commonFunctions.getElement(driver, "interim.wages.frequency3").sendKeys(getInterimData("Wagesmonthlyfrequency3"));
-			commonFunctions.getElement(driver, "interim.wages.amount3").sendKeys(getInterimData("Wagesmonthlyamount3"));
+			commonFunctions.getElement(driver, "interim.wages.employer2").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.wages.frequency3").sendKeys("Monthly");
+			commonFunctions.getElement(driver, "interim.wages.amount3").sendKeys(getAmount());
 			initializer.successCallwithSnapShot("Amount  monthly enter successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1325,9 +1301,9 @@ public void spanishLanguage() {
 
 	public void one_Amount3_Wages_Quarterly() {
 		try {
-			commonFunctions.getElement(driver, "interim.wages.employer3").sendKeys(getInterimData("Wagesquarterlyname3"));
-			commonFunctions.getElement(driver, "interim.wages.frequency3").sendKeys(getInterimData("Wagesquarterlyfrequency3"));
-			commonFunctions.getElement(driver, "interim.wages.amount3").sendKeys(getInterimData("Wagesquarterlyamount3"));
+			commonFunctions.getElement(driver, "interim.wages.employer3").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.wages.frequency3").sendKeys("Quarterly");
+			commonFunctions.getElement(driver, "interim.wages.amount3").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  every two weeks enter successfully.");
 		} catch (Exception e) {
@@ -1338,9 +1314,9 @@ public void spanishLanguage() {
 
 	public void one_Amount3_Wages_Weekly() {
 		try {
-			commonFunctions.getElement(driver, "interim.wages.employer3").sendKeys(getInterimData("Wagesweeklyname3"));
-			commonFunctions.getElement(driver, "interim.wages.frequency3").sendKeys(getInterimData("Wagesweeklyfrequency3"));
-			commonFunctions.getElement(driver, "interim.wages.amount3").sendKeys(getInterimData("Wagesweeklyamount3"));
+			commonFunctions.getElement(driver, "interim.wages.employer3").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.wages.frequency3").sendKeys("Weekly");
+			commonFunctions.getElement(driver, "interim.wages.amount3").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  week enter successfully.");
 		} catch (Exception e) {
@@ -1403,9 +1379,9 @@ public void spanishLanguage() {
 	
 	public void two_Amount1_Selfemp_Monthly() {
 		try {
-			commonFunctions.getElement(driver, "interim.selfemp.employer1").sendKeys(getInterimData("Selfempmonthlyname1"));
-			commonFunctions.getElement(driver, "interim.selfemp.frequency1").sendKeys(getInterimData("Selfempmonthlyfrequency1"));
-			commonFunctions.getElement(driver, "interim.selfemp.amount1").sendKeys(getInterimData("Selfempmonthlyamount1"));
+			commonFunctions.getElement(driver, "interim.selfemp.employer1").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.selfemp.frequency1").sendKeys("Monthly");
+			commonFunctions.getElement(driver, "interim.selfemp.amount1").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  monthly enter successfully.");
 		} catch (Exception e) {
@@ -1416,9 +1392,9 @@ public void spanishLanguage() {
 
 	public void two_Amount1_Selfemp_Semiannual() {
 		try {
-			commonFunctions.getElement(driver, "interim.selfemp.employer1").sendKeys(getInterimData("Selfempsemiannualname1"));
-			commonFunctions.getElement(driver, "interim.selfemp.frequency1").sendKeys(getInterimData("Selfempsemiannualfrequency1"));
-			commonFunctions.getElement(driver, "interim.selfemp.amount1").sendKeys(getInterimData("Selfempsemiannualamount1"));
+			commonFunctions.getElement(driver, "interim.selfemp.employer1").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.selfemp.frequency1").sendKeys("Semiannual (twice a year)");
+			commonFunctions.getElement(driver, "interim.selfemp.amount1").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  Semiannual (twice a year) enter successfully.");
 		} catch (Exception e) {
@@ -1429,9 +1405,9 @@ public void spanishLanguage() {
 	
 	public void two_Amount1_Selfemp_Weekly() {
 		try {
-			commonFunctions.getElement(driver, "interim.selfemp.employer1").sendKeys(getInterimData("Selfempweeklyname1"));
-			commonFunctions.getElement(driver, "interim.selfemp.frequency1").sendKeys(getInterimData("Selfempweeklyfrequency1"));
-			commonFunctions.getElement(driver, "interim.selfemp.amount1").sendKeys(getInterimData("Selfempweeklyamount1"));
+			commonFunctions.getElement(driver, "interim.selfemp.employer1").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.selfemp.frequency1").sendKeys("Weekly");
+			commonFunctions.getElement(driver, "interim.selfemp.amount1").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  weekly enter successfully.");
 		} catch (Exception e) {
@@ -1442,10 +1418,9 @@ public void spanishLanguage() {
 	
 	public void two_Amount2_Selfemp_Bimonthly() {
 		try {
-			commonFunctions.getElement(driver, "interim.selfemp.employer2").sendKeys(getInterimData("SelfempBimonthlyname2"));
-			commonFunctions.getElement(driver, "interim.selfemp.frequency2").sendKeys(getInterimData("SelfempBimonthlyfrequency2"));
-			commonFunctions.getElement(driver, "interim.selfemp.amount2").sendKeys(getInterimData("SelfempBimonthlyamount2"));
-			initializer.wait(2);
+			commonFunctions.getElement(driver, "interim.selfemp.employer2").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.selfemp.frequency2").sendKeys("Bimonthly (every two months)");
+			commonFunctions.getElement(driver, "interim.selfemp.amount2").sendKeys(getAmount());
 			initializer.successCallwithSnapShot("Amount  Bimonthly (every two months) enter successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1455,9 +1430,9 @@ public void spanishLanguage() {
 
 	public void two_Amount2_Selfemp_Annual() {
 		try {
-			commonFunctions.getElement(driver, "interim.selfemp.employer2").sendKeys(getInterimData("Selfempannualname2"));
-			commonFunctions.getElement(driver, "interim.selfemp.frequency2").sendKeys(getInterimData("Selfempquarterlyfrequency2"));
-			commonFunctions.getElement(driver, "interim.selfemp.amount2").sendKeys(getInterimData("Selfempannualamount2"));
+			commonFunctions.getElement(driver, "interim.selfemp.employer2").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.selfemp.frequency2").sendKeys("Annual");
+			commonFunctions.getElement(driver, "interim.selfemp.amount2").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  every two weeks enter successfully.");
 		} catch (Exception e) {
@@ -1468,9 +1443,9 @@ public void spanishLanguage() {
 
 	public void two_Amount2_Selfemp_Weekly() {
 		try {
-			commonFunctions.getElement(driver, "interim.selfemp.employer2").sendKeys(getInterimData("Selfempweeklyname2"));
-			commonFunctions.getElement(driver, "interim.selfemp.frequency2").sendKeys(getInterimData("Selfempweeklyfrequency2"));
-			commonFunctions.getElement(driver, "interim.selfemp.amount2").sendKeys(getInterimData("Selfempweeklyamount2"));
+			commonFunctions.getElement(driver, "interim.selfemp.employer2").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.selfemp.frequency2").sendKeys("Weekly");
+			commonFunctions.getElement(driver, "interim.selfemp.amount2").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  weekly enter successfully.");
 		} catch (Exception e) {
@@ -1481,9 +1456,9 @@ public void spanishLanguage() {
 
 	public void two_Amount3_Selfemp_Monthly() {
 		try {
-			commonFunctions.getElement(driver, "interim.selfemp.employer3").sendKeys(getInterimData("Selfempmonthlyname3"));
-			commonFunctions.getElement(driver, "interim.selfemp.frequency3").sendKeys(getInterimData("Selfempmonthlyfrequency3"));
-			commonFunctions.getElement(driver, "interim.selfemp.amount3").sendKeys(getInterimData("Selfempmonthlyamount3"));
+			commonFunctions.getElement(driver, "interim.selfemp.employer3").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.selfemp.frequency3").sendKeys("Monthly");
+			commonFunctions.getElement(driver, "interim.selfemp.amount3").sendKeys(getAmount());
 			initializer.successCallwithSnapShot("Amount  monthly enter successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1493,9 +1468,9 @@ public void spanishLanguage() {
 
 	public void two_Amount3_Selfemp_Quarterly() {
 		try {
-			commonFunctions.getElement(driver, "interim.selfemp.employer3").sendKeys(getInterimData("Selfempquarterlyname3"));
-			commonFunctions.getElement(driver, "interim.selfemp.frequency3").sendKeys(getInterimData("Selfempquartelyfrequency3"));
-			commonFunctions.getElement(driver, "interim.selfemp.amount3").sendKeys(getInterimData("Selfempquarterlyamount3"));
+			commonFunctions.getElement(driver, "interim.selfemp.employer3").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.selfemp.frequency3").sendKeys("Quarterly");
+			commonFunctions.getElement(driver, "interim.selfemp.amount3").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  Quarterly enter successfully.");
 		} catch (Exception e) {
@@ -1506,9 +1481,9 @@ public void spanishLanguage() {
 
 	public void two_Amount3_Selfemp_Weekly() {
 		try {
-			commonFunctions.getElement(driver, "interim.selfemp.employer3").sendKeys(getInterimData("Selfempweeklyname3"));
-			commonFunctions.getElement(driver, "interim.selfemp.frequency3").sendKeys(getInterimData("Selfempweeklyfrequency3"));
-			commonFunctions.getElement(driver, "interim.selfemp.amount3").sendKeys(getInterimData("Selfempweeklyamount3"));
+			commonFunctions.getElement(driver, "interim.selfemp.employer3").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.selfemp.frequency3").sendKeys("Weekly");
+			commonFunctions.getElement(driver, "interim.selfemp.amount3").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  weekly enter successfully.");
 		} catch (Exception e) {
@@ -1571,9 +1546,9 @@ public void spanishLanguage() {
 	
 	public void three_Amount1_Workstudy_Monthly() {
 		try {
-			commonFunctions.getElement(driver, "interim.workstudy.employer1").sendKeys(getInterimData("Workstudymonthlyname1"));
-			commonFunctions.getElement(driver, "interim.workstudy.frequency1").sendKeys(getInterimData("Workstudymonthlyfrequency1"));
-			commonFunctions.getElement(driver, "interim.workstudy.amount1").sendKeys(getInterimData("Workstudymonthlyamount1"));
+			commonFunctions.getElement(driver, "interim.workstudy.employer1").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.workstudy.frequency1").sendKeys("Monthly");
+			commonFunctions.getElement(driver, "interim.workstudy.amount1").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  monthly enter successfully.");
 		} catch (Exception e) {
@@ -1584,9 +1559,9 @@ public void spanishLanguage() {
 
 	public void three_Amount1_Workstudy_Semiannual() {
 		try {
-			commonFunctions.getElement(driver, "interim.workstudy.employer1").sendKeys(getInterimData("Workstudysemiannualname1"));
-			commonFunctions.getElement(driver, "interim.workstudy.frequency1").sendKeys(getInterimData("Workstudysemiannualfrequency1"));
-			commonFunctions.getElement(driver, "interim.workstudy.amount1").sendKeys(getInterimData("Workstudysemiannualamount1"));
+			commonFunctions.getElement(driver, "interim.workstudy.employer1").sendKeys(getAmount());
+			commonFunctions.getElement(driver, "interim.workstudy.frequency1").sendKeys("Semiannual (twice a year)");
+			commonFunctions.getElement(driver, "interim.workstudy.amount1").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  Semiannual (twice a year) enter successfully.");
 		} catch (Exception e) {
@@ -1597,9 +1572,9 @@ public void spanishLanguage() {
 	
 	public void three_Amount1_Workstudy_Weekly() {
 		try {
-			commonFunctions.getElement(driver, "interim.workstudy.employer1").sendKeys(getInterimData("Workstudyweeklyname1"));
-			commonFunctions.getElement(driver, "interim.workstudy.frequency1").sendKeys(getInterimData("Workstudyweeklyfrequency1"));
-			commonFunctions.getElement(driver, "interim.workstudy.amount1").sendKeys(getInterimData("Workstudyweeklyamount1"));
+			commonFunctions.getElement(driver, "interim.workstudy.employer1").sendKeys(getAmount());
+			commonFunctions.getElement(driver, "interim.workstudy.frequency1").sendKeys("Weekly");
+			commonFunctions.getElement(driver, "interim.workstudy.amount1").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  weekly enter successfully.");
 		} catch (Exception e) {
@@ -1610,9 +1585,9 @@ public void spanishLanguage() {
 	
 	public void three_Amount2_Workstudy_Bimonthly() {
 		try {
-			commonFunctions.getElement(driver, "interim.workstudy.employer2").sendKeys(getInterimData("Workstudybimonthlyname2"));
-			commonFunctions.getElement(driver, "interim.workstudy.frequency2").sendKeys(getInterimData("Workstudybimonthlyfrequency2"));
-			commonFunctions.getElement(driver, "interim.workstudy.amount2").sendKeys(getInterimData("Workstudybimonthlyamount2"));
+			commonFunctions.getElement(driver, "interim.workstudy.employer2").sendKeys(getAmount());
+			commonFunctions.getElement(driver, "interim.workstudy.frequency2").sendKeys("Bimonthly (every two months)");
+			commonFunctions.getElement(driver, "interim.workstudy.amount2").sendKeys(getAmount());
 			initializer.successCallwithSnapShot("Amount  Bimonthly (every two months) enter successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1622,9 +1597,9 @@ public void spanishLanguage() {
 
 	public void three_Amount2_Workstudy_Annual() {
 		try {
-			commonFunctions.getElement(driver, "interim.workstudy.employer2").sendKeys(getInterimData("Workstudyannualname2"));
-			commonFunctions.getElement(driver, "interim.workstudy.frequency2").sendKeys(getInterimData("Workstudyannualfrequency2"));
-			commonFunctions.getElement(driver, "interim.workstudy.amount2").sendKeys(getInterimData("Workstudyannualamount2"));
+			commonFunctions.getElement(driver, "interim.workstudy.employer2").sendKeys(getAmount());
+			commonFunctions.getElement(driver, "interim.workstudy.frequency2").sendKeys("Annual");
+			commonFunctions.getElement(driver, "interim.workstudy.amount2").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  every two weeks enter successfully.");
 		} catch (Exception e) {
@@ -1635,9 +1610,9 @@ public void spanishLanguage() {
 
 	public void three_Amount2_Workstudy_Weekly() {
 		try {
-			commonFunctions.getElement(driver, "interim.workstudy.employer2").sendKeys(getInterimData("Workstudyweeklyname2"));
-			commonFunctions.getElement(driver, "interim.workstudy.frequency2").sendKeys(getInterimData("Workstudyweeklyfrequency2"));
-			commonFunctions.getElement(driver, "interim.workstudy.amount2").sendKeys(getInterimData("Workstudyweeklyamount2"));
+			commonFunctions.getElement(driver, "interim.workstudy.employer2").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.workstudy.frequency2").sendKeys("Weekly");
+			commonFunctions.getElement(driver, "interim.workstudy.amount2").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  weekly enter successfully.");
 		} catch (Exception e) {
@@ -1648,9 +1623,9 @@ public void spanishLanguage() {
 
 	public void three_Amount3_Workstudy_Monthly() {
 		try {
-			commonFunctions.getElement(driver, "interim.workstudy.employer3").sendKeys(getInterimData("Workstudymonthlyname3"));
-			commonFunctions.getElement(driver, "interim.workstudy.frequency3").sendKeys(getInterimData("Workstudymonthlyfrequency3"));
-			commonFunctions.getElement(driver, "interim.workstudy.amount3").sendKeys(getInterimData("Workstudymonthlyamount3"));
+			commonFunctions.getElement(driver, "interim.workstudy.employer3").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.workstudy.frequency3").sendKeys("Monthly");
+			commonFunctions.getElement(driver, "interim.workstudy.amount3").sendKeys(getAmount());
 			initializer.successCallwithSnapShot("Amount  monthly enter successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1660,9 +1635,9 @@ public void spanishLanguage() {
 
 	public void three_Amount3_Workstudy_Quarterly() {
 		try {
-			commonFunctions.getElement(driver, "interim.workstudy.employer3").sendKeys(getInterimData("Workstudyquarterlyname3"));
-			commonFunctions.getElement(driver, "interim.workstudy.frequency3").sendKeys(getInterimData("Workstudyquarterlyfrequency3"));
-			commonFunctions.getElement(driver, "interim.workstudy.amount3").sendKeys(getInterimData("Workstudyquarterlyamount3"));
+			commonFunctions.getElement(driver, "interim.workstudy.employer3").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.workstudy.frequency3").sendKeys("Quarterly");
+			commonFunctions.getElement(driver, "interim.workstudy.amount3").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  Quarterly enter successfully.");
 		} catch (Exception e) {
@@ -1673,9 +1648,9 @@ public void spanishLanguage() {
 
 	public void three_Amount3_Workstudy_Weekly() {
 		try {
-			commonFunctions.getElement(driver, "interim.workstudy.employer3").sendKeys(getInterimData("Workstudyweeklyname3"));
-			commonFunctions.getElement(driver, "interim.workstudy.frequency3").sendKeys(getInterimData("Workstudyweeklyfrequency3"));
-			commonFunctions.getElement(driver, "interim.workstudy.amount3").sendKeys(getInterimData("Workstudyweeklyamount3"));
+			commonFunctions.getElement(driver, "interim.workstudy.employer3").sendKeys(getName());
+			commonFunctions.getElement(driver, "interim.workstudy.frequency3").sendKeys("Weekly");
+			commonFunctions.getElement(driver, "interim.workstudy.amount3").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  weekly enter successfully.");
 		} catch (Exception e) {
@@ -1815,10 +1790,10 @@ public void spanishLanguage() {
 		}
 	}
 	
-	public void one_Amount1_Unemployment_Monthly() {
+	public void one_Amount1_Unemplyment_Monthly() {
 		try {
-			commonFunctions.getElement(driver, "interim.unemp.frequency1").sendKeys(getInterimData("Unemploymentmonthlyfrequency1"));
-			commonFunctions.getElement(driver, "interim.unemp.amount1").sendKeys(getInterimData("Unemploymentmonthlyamount1"));
+			commonFunctions.getElement(driver, "interim.unemp.frequency1").sendKeys("Monthly");
+			commonFunctions.getElement(driver, "interim.unemp.amount1").sendKeys(getAmount());
 			initializer.successCallwithSnapShot("Amount monthly enter successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1827,8 +1802,8 @@ public void spanishLanguage() {
 	}
 	public void one_Amount1_Unemployment_Annual() {
 		try {
-			commonFunctions.getElement(driver, "interim.unemp.frequency1").sendKeys(getInterimData("Unemploymentannualfrequency1"));
-			commonFunctions.getElement(driver, "interim.unemp.amount1").sendKeys(getInterimData("Unemploymentannualamount1"));
+			commonFunctions.getElement(driver, "interim.unemp.frequency1").sendKeys("Annual");
+			commonFunctions.getElement(driver, "interim.unemp.amount1").sendKeys(getAmount());
 			initializer.successCallwithSnapShot("Amount Annual enter successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1838,8 +1813,8 @@ public void spanishLanguage() {
 	
 	public void one_Amount2_Unemployment_Quarterly() {
 		try {
-			commonFunctions.getElement(driver, "interim.unemp.frequency2").sendKeys(getInterimData("Unemploymentquarterlyfrequency2"));
-			commonFunctions.getElement(driver, "interim.unemp.amount2").sendKeys(getInterimData("Unemploymentquarterlyamount2"));
+			commonFunctions.getElement(driver, "interim.unemp.frequency2").sendKeys("Quarterly");
+			commonFunctions.getElement(driver, "interim.unemp.amount2").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  Quarterly enter successfully.");
 		} catch (Exception e) {
@@ -1850,9 +1825,9 @@ public void spanishLanguage() {
 
 	public void one_Amount2_Unemployment_Weekly() {
 		try {
-			commonFunctions.getElement(driver, "interim.unemp.frequency2").sendKeys(getInterimData("Unemploymentweeklyfrequency2"));
-			commonFunctions.getElement(driver, "interim.unemp.amount2").sendKeys(getInterimData("Unemploymentweeklyamount2"));
-			initializer.wait(10);
+			commonFunctions.getElement(driver, "interim.unemp.frequency2").sendKeys("Weekly");
+			commonFunctions.getElement(driver, "interim.unemp.amount2").sendKeys(getAmount());
+			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  week enter successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1872,8 +1847,8 @@ public void spanishLanguage() {
 	}
 	public void one_Amount1_pension_Monthly() {
 		try {
-			commonFunctions.getElement(driver, "interim.pension.frequency1").sendKeys(getInterimData("Pensionbenefitmonthlyfrequency1"));
-			commonFunctions.getElement(driver, "interim.pension.amount1").sendKeys(getInterimData("Pensionbenefitmonthlyamount1"));
+			commonFunctions.getElement(driver, "interim.pension.frequency1").sendKeys("Monthly");
+			commonFunctions.getElement(driver, "interim.pension.amount1").sendKeys(getAmount());
 			initializer.successCallwithSnapShot("Amount monthly enter successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1882,8 +1857,8 @@ public void spanishLanguage() {
 	}
 	public void one_Amount1_pension_Annual() {
 		try {
-			commonFunctions.getElement(driver, "interim.pension.frequency1").sendKeys(getInterimData("Pensionbenefitannualfrequency1"));
-			commonFunctions.getElement(driver, "interim.pension.amount1").sendKeys(getInterimData("Pensionbenefitannualamount1"));
+			commonFunctions.getElement(driver, "interim.pension.frequency1").sendKeys("Annual");
+			commonFunctions.getElement(driver, "interim.pension.amount1").sendKeys("456.33");
 			initializer.successCallwithSnapShot("Amount Annual enter successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1893,8 +1868,8 @@ public void spanishLanguage() {
 	
 	public void one_Amount2_pension_Quarterly() {
 		try {
-			commonFunctions.getElement(driver, "interim.pension.frequency2").sendKeys(getInterimData("Pensionbenefitquarterlyfrequency2"));
-			commonFunctions.getElement(driver, "interim.pension.amount2").sendKeys(getInterimData("Pensionbenefitquarterlyamount2"));
+			commonFunctions.getElement(driver, "interim.pension.frequency2").sendKeys("Quarterly");
+			commonFunctions.getElement(driver, "interim.pension.amount2").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  Quarterly enter successfully.");
 		} catch (Exception e) {
@@ -1905,8 +1880,8 @@ public void spanishLanguage() {
 
 	public void one_Amount2_pension_Weekly() {
 		try {
-			commonFunctions.getElement(driver, "interim.pension.frequency2").sendKeys(getInterimData("Pensionbenefitweeklyfrequency2"));
-			commonFunctions.getElement(driver, "interim.pension.amount2").sendKeys(getInterimData("Pensionbenefitweeklyamount2"));
+			commonFunctions.getElement(driver, "interim.pension.frequency2").sendKeys("Weekly");
+			commonFunctions.getElement(driver, "interim.pension.amount2").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  week enter successfully.");
 		} catch (Exception e) {
@@ -1928,8 +1903,8 @@ public void spanishLanguage() {
 	}
 	public void one_Amount1_veteranbenefit_Monthly() {
 		try {
-			commonFunctions.getElement(driver, "interim.veteran.frequency1").sendKeys(getInterimData("Veteranbenefitmonthlyfrequency1"));
-			commonFunctions.getElement(driver, "interim.veteran.amount1").sendKeys(getInterimData("Veteranbenefitmonthlyamount1"));
+			commonFunctions.getElement(driver, "interim.veteran.frequency1").sendKeys("Monthly");
+			commonFunctions.getElement(driver, "interim.veteran.amount1").sendKeys(getAmount());
 			initializer.successCallwithSnapShot("Amount monthly enter successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1938,8 +1913,8 @@ public void spanishLanguage() {
 	}
 	public void one_Amount1_veteranbenefit_Annual() {
 		try {
-			commonFunctions.getElement(driver, "interim.veteran.frequency1").sendKeys(getInterimData("Veteranbenefitannualfrequency1"));
-			commonFunctions.getElement(driver, "interim.veteran.amount1").sendKeys(getInterimData("Veteranbenefitannualamount1"));
+			commonFunctions.getElement(driver, "interim.veteran.frequency1").sendKeys("Annual");
+			commonFunctions.getElement(driver, "interim.veteran.amount1").sendKeys(getAmount());
 			initializer.successCallwithSnapShot("Amount Annual enter successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1949,8 +1924,8 @@ public void spanishLanguage() {
 	
 	public void one_Amount2_veteranbenefit_Quarterly() {
 		try {
-			commonFunctions.getElement(driver, "interim.veteran.frequency2").sendKeys(getInterimData("Veteranbenefitquarterlyfrequency2"));
-			commonFunctions.getElement(driver, "interim.veteran.amount2").sendKeys(getInterimData("Veteranbenefitquarterlyamount2"));
+			commonFunctions.getElement(driver, "interim.veteran.frequency2").sendKeys("Quarterly");
+			commonFunctions.getElement(driver, "interim.veteran.amount2").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  Quarterly enter successfully.");
 		} catch (Exception e) {
@@ -1961,8 +1936,8 @@ public void spanishLanguage() {
 
 	public void one_Amount2_veteranbenefit_Weekly() {
 		try {
-			commonFunctions.getElement(driver, "interim.veteran.frequency2").sendKeys(getInterimData("Veteranbenefitweeklyfrequency2"));
-			commonFunctions.getElement(driver, "interim.unveteran.amount2").sendKeys(getInterimData("Veteranbenefitweeklyamount2"));
+			commonFunctions.getElement(driver, "interim.veteran.frequency2").sendKeys("Weekly");
+			commonFunctions.getElement(driver, "interim.unveteran.amount2").sendKeys(getAmount());
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  week enter successfully.");
 		} catch (Exception e) {
@@ -2009,8 +1984,8 @@ public void spanishLanguage() {
 		try {
 			commonFunctions.getElement(driver, "interim.namechildsupport").click();
 			initializer.wait(2);
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.successCallwithSnapShot("Navigate to '" + title + "' page successfully");
+			String title = commonFunctions.getElement(driver, "interim.namechildsupport").getText();
+			initializer.successCallwithSnapShot("clicked '" + title + "' button successfully");
 			} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
 			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
@@ -2029,12 +2004,21 @@ public void spanishLanguage() {
 			}
 		}
 	
-	
+	public void addanotherchild() {
+		try {
+			commonFunctions.getElement(driver, "interim.addanotherchild").click();
+			initializer.wait(2);
+			initializer.infoCall(" Add another child clicked successfully");
+			} catch (Exception e) {
+			String title = commonFunctions.getElement(driver, "page.title").getText();
+			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
+		}
+	}
 	
 	public void one_Amount1_child_Monthly() {
 		try {
-			commonFunctions.getElement(driver, "interim.child.amount").sendKeys(getInterimData("Childsupportmonthlyamount1"));
-			commonFunctions.getElement(driver, "interim.child.frequency").sendKeys(getInterimData("Childsupportmonthlyfrequency1"));
+			commonFunctions.getElement(driver, "interim.child.amount1").sendKeys(getAmount());
+			commonFunctions.getElement(driver, "interim.child.frequency1").sendKeys("Monthly");
 			initializer.wait(2);
 			initializer.successCallwithSnapShot("Amount  monthly enter successfully.");
 		} catch (Exception e) {
@@ -2055,17 +2039,6 @@ public void spanishLanguage() {
 		}
 	}
 	
-	public void interimchildremove() {
-		try {
-			commonFunctions.getElement(driver, "interim.child.remove").click();
-			initializer.wait(2);
-			initializer.successCallwithSnapShot("Removed child expenses successfully");
-			} catch (Exception e) {
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
-		}
-	}
-	
 	public void childSupport_No() {
 		try {
 			
@@ -2078,27 +2051,6 @@ public void spanishLanguage() {
 		}
 	}
 	
-	public void otherinfo_Yes() {
-		try {
-			commonFunctions.getElement(driver, "interim.otherinfo.yes").click();
-			initializer.wait(2);
-			initializer.infoCall("Select option as 'YES' successfully");
-		} catch (Exception e) {
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
-		}
-	}
-	
-	public void otherinfo_No() {
-		try {
-			commonFunctions.getElement(driver, "interim.otherinfo.no").click();
-			initializer.wait(2);
-			initializer.infoCall("Select option as 'YES' successfully");
-		} catch (Exception e) {
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
-		}
-	}
 	
 	public void signSubmitValidationMsg() {
 		try {
@@ -2136,44 +2088,17 @@ public void spanishLanguage() {
 			commonFunctions.getElement(driver, "interim.sign.sign").sendKeys(getName());
 			initializer.wait(3);
 			initializer.successCallwithSnapShot("Client Agree and Signed successfully ");
-			commonFunctions.getElement(driver, "generic.continue").click();
-			initializer.wait(5);
-			initializer.successCallwithSnapShot("Client clicked submit interim report successfully ");
-			initializer.wait(5);
-			String fileName = commonFunctions.getElement(driver, "interimreport.download").getText();
-//			String myNumber = commonFunctions.getElement(driver, "interimapplication.number").getText();
+//			commonFunctions.getElement(driver, "generic.continue").click();
+			initializer.wait(10);
+			initializer.successCallwithSnapShot("Client clicked submit Signed successfully ");
+			initializer.wait(15);
+			String myNumber = commonFunctions.getElement(driver, "interimapplication.number").getText();
 //			deleteRecord_DB(myNumber.split(":")[1].trim());
 			commonFunctions.getElement(driver, "interimreport.download").click();
 			initializer.wait(5);
-			initializer.successCallwithSnapShot(fileName + " successfull!");
-			initializer.successCallwithSnapShot( "Interim report datasheet available at \\DTAConnect\\src\\test\\resources\\Results\\Downloads");
-			initializer.wait(2);
-
-		} catch (Exception e) {
-			initializer.failureCallwithException("Exception occured in 'Sign & submit---Sign & Submit' Page", e);
-		}
-	}
-	
-	public void signSubmit_ES() {
-		try {
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.successCallwithSnapShot("Displayed " + title + " page successfully");
-			commonFunctions.getElement(driver, "interim.sign.agree").click();
-			commonFunctions.getElement(driver, "interim.sign.sign").sendKeys(getName());
-			initializer.wait(3);
-			initializer.successCallwithSnapShot("Client Agree and Signed successfully ");
-			commonFunctions.getElement(driver, "generic.continue").click();
-			initializer.wait(5);
-			initializer.successCallwithSnapShot("Client clicked submit interim report successfully ");
-			initializer.wait(5);
-			commonFunctions.getElement(driver, "es.interimreport.download").click();
-			String fileName = commonFunctions.getElement(driver, "es.interimreport.download").getText();
-//			String myNumber = commonFunctions.getElement(driver, "es.interimapplication.number").getText();
-//			deleteRecord_DB(myNumber.split(":")[1].trim());
-			initializer.wait(5);
-			initializer.successCallwithSnapShot(fileName + " successfull!");
-//			initializer.successCallwithSnapShot(myNumber + " successfull!");
-			initializer.successCallwithSnapShot( "Comenzar el Informe provisional datasheet available at \\DTAConnect\\src\\test\\resources\\Results\\Downloads");
+			initializer.successCallwithSnapShot(myNumber + " and it was downloaded successfully!");
+			initializer.successCallwithSnapShot(
+					"Datasheet available at \\DTAConnect\\src\\test\\resources\\Results\\Downloads");
 			initializer.wait(2);
 
 		} catch (Exception e) {

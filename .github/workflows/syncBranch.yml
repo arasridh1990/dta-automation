@@ -1,0 +1,42 @@
+name: Sync Branches
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to sync"
+        required: true
+        default: "odc_sample" # Default branch name to sync
+
+env:
+  GITHUB_TOKEN_OFFSHORE: XXXX
+  GITHUB_TOKEN_ONSHORE: XXXX
+  GITHUB_PRIVATE_KEY: XXXX
+
+jobs:
+  sync-branches:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Offshore Repository
+        uses: actions/checkout@v3
+        with:
+          repository: kyybatech/repo_connect_automation
+          ref: ${{ github.event.inputs.branch }}
+          token: ${{ env.GITHUB_TOKEN_OFFSHORE }}
+      - name: Echo SSH key
+        run: |
+          mkdir ~/.ssh/id_rsa
+          echo ${{ env.GITHUB_PRIVATE_KEY }} | base64 -d > ~/.ssh/id_rsa
+          
+      - name: Add Onshore Repository as Remote
+        run: |
+          echo  ${{ env.GITHUB_PRIVATE_KEY }} | base64 -d > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+          git remote add onshore git@github.com:massgov-eohhs/dta-connect-automation.git
+          git fetch onshore
+
+      - name: Push Changes to Onshore Repository
+        run: |
+          git push onshore ${{ github.event.inputs.branch }}

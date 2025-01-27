@@ -46,7 +46,6 @@ public class TestScripts_ApplyEBT extends BaseClass {
 		ebt.address();
 		ebt.phone();
 		ebt.message_alert_Yes();
-		ebt.childcasenumber();
 		ebt.continue_Option();
 		ebt.close_page();
 //------------ original test data
@@ -61,7 +60,6 @@ public class TestScripts_ApplyEBT extends BaseClass {
 		ebt.address1();
 		ebt.phone1();
 		ebt.message_alert_No1();
-		ebt.childcasenumber1();
 		ebt.continue_Option();
 		ebt.close_page();
 		

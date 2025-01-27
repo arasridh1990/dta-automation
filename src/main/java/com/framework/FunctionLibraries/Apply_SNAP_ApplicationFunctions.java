@@ -112,7 +112,6 @@ public class Apply_SNAP_ApplicationFunctions{
 	 * @throws SQLException
 	 * @author Santhosh Karra
 	 */
-	@SuppressWarnings("deprecation")
 	public void launchURL(String strURL) {
 		String strBrowser = System.getProperty("Browser");
 		try {
@@ -249,9 +248,8 @@ public class Apply_SNAP_ApplicationFunctions{
 	String SSNValidation = "Please enter a valid Social Security Number";
 	String addressvalidation = "Please enter a valid address";
 	String phonevalidation = "Please enter a valid phone number";
-	String emailvalidation = "Please enter a valid email";
+	String emailvalidation = "Please enter a valid email address";
 	String zipvalidation = "This SNAP application is for Massachusetts residents. If you live in Massachusetts, please enter your Zip Code. If you do not live in Massachusetts, you must apply in your state.";
-	String mailingzipvalidation = "This SNAP application is for Massachusetts residents. If you live in Massachusetts, please enter your Zip Code. If you do not live in Massachusetts, you must apply in your state.";
 	String householdvalidation = "Please choose no. of household";
 	
 	String hhincomevalidation = "Please select an option below";
@@ -461,11 +459,6 @@ public class Apply_SNAP_ApplicationFunctions{
 	/**
 	 * @author Santhosh Karra
 	 */
-	
-	public String getSnapData(String param) {
-		return commonFunctions.getTestData(stage.getTestName(), param, "file.snapDataFilePath");
-	}
-	
 	public void app_Down() {
 
 		try {
@@ -488,6 +481,7 @@ public class Apply_SNAP_ApplicationFunctions{
 	public void applySNAPButton() {
 		try {
 			initializer.wait(2);
+			initializer.infoCall("Santhosh Karra");
 			commonFunctions.getElement(driver, "fs.applySNAP").click();
 			initializer.infoCall("Clicking 'Apply SNAP!' button sucessfully.");
 			initializer.wait(2);
@@ -498,29 +492,7 @@ public class Apply_SNAP_ApplicationFunctions{
 			initializer.failureCallwithException("Exception occured in 'DTA Connect home' Page", e);
 		}
 	}
-	public void applySNAPButton_es() {
-		try {
-			initializer.wait(2);
-			commonFunctions.getElement(driver, "es.applySNAP").click();
-			initializer.infoCall("Clicking 'Apply SNAP!' button sucessfully.");
-			initializer.wait(2);
-			initializer.successCallwithSnapShot("'ApplySNAP!' application is launched successfully");
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.successCallwithSnapShot("Navigate to '" + title + "' page successfully");
-		} catch (Exception e) {
-			initializer.failureCallwithException("Exception occured in 'DTA Connect home' Page", e);
-		}
-	}
-	public void languageSelect() {
-		try {
-			initializer.wait(5);
-			selectDropDown(commonFunctions.getElement(driver, "language.select"), getSnapData("Language"));
-			initializer.infoCall("Language selected sucessfully.");
-			initializer.wait(5);
-			} catch (Exception e) {
-			initializer.failureCallwithException("Exception occured in 'DTA Connect home' Page", e);
-		}
-	}
+
 	/**
 	 * @author Santhosh Karra
 	 */
@@ -530,7 +502,7 @@ public class Apply_SNAP_ApplicationFunctions{
 			String title = commonFunctions.getElement(driver, "page.title").getText();
 			initializer.successCallwithSnapShot("Enter/Select all '" + title + "' Page information successfully.");
 			commonFunctions.getElement(driver, "generic.continue").click();
-			initializer.infoCall("Click 'Continue' button successfully.");
+			initializer.infoCall("Click 'Continue' button sucessfully.");
 			initializer.wait(2);
 			String title1 = commonFunctions.getElement(driver, "page.title").getText();
 			initializer.successCallwithSnapShot("Navigate to '" + title1 + "' page successfully ");
@@ -565,7 +537,7 @@ public class Apply_SNAP_ApplicationFunctions{
 	 */
 	public void noOne_Option() {
 		try {
-			commonFunctions.getElement(driver, "generic.noone.es").click();
+			commonFunctions.getElement(driver, "generic.noone").click();
 			initializer.wait(2);
 			String title = commonFunctions.getElement(driver, "page.title").getText();
 			initializer.infoCall("Select 'No one' option successfully in ' " + title + " 'page.");
@@ -666,7 +638,7 @@ public class Apply_SNAP_ApplicationFunctions{
 	 */
 	public void sSN_ValidationMsg() {
 		try {
-			commonFunctions.getElement(driver, "household.ssn").sendKeys(getSnapData("Wrongssn"));
+			commonFunctions.getElement(driver, "household.ssn").sendKeys(getWrongSSN());
 			commonFunctions.getElement(driver, "generic.continue").click();
 			try {
 				String ssn = commonFunctions.getElement(driver, "fs.ssnvalidation").getText();
@@ -811,7 +783,7 @@ public class Apply_SNAP_ApplicationFunctions{
 			String title = commonFunctions.getElement(driver, "page.title").getText();
 			initializer.infoCall("Select option as more in '" + title + "' Page.");
 			commonFunctions.getElement(driver, "fs.moreinput")
-					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "moreHH", "file.recertDataFilePath"));
+					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "moreHH"));
 			initializer.wait(2);
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -906,8 +878,8 @@ public class Apply_SNAP_ApplicationFunctions{
 	 */
 	public void firstLast_Name() {
 		try {
-			commonFunctions.getElement(driver, "household.fname").sendKeys(getSnapData("FName"));
-			commonFunctions.getElement(driver, "household.lname").sendKeys(getSnapData("LName"));
+			commonFunctions.getElement(driver, "household.fname").sendKeys(getName());
+			commonFunctions.getElement(driver, "household.lname").sendKeys(getName());
 			initializer.wait(2);
 			initializer.infoCall("Enter First name and Last name successfully.");
 		} catch (Exception e) {
@@ -916,47 +888,18 @@ public class Apply_SNAP_ApplicationFunctions{
 		}
 	}
 
-	public void firstLast_Name1() {
-		try {
-			commonFunctions.getElement(driver, "household.fname").sendKeys(getSnapData("FName1"));
-			commonFunctions.getElement(driver, "household.lname").sendKeys(getSnapData("LName1"));
-			initializer.wait(2);
-			initializer.infoCall("Enter First name and Last name successfully.");
-		} catch (Exception e) {
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
-		}
-	}
-	public void firstLast_Name2() {
-		try {
-			commonFunctions.getElement(driver, "household.fname").sendKeys(getSnapData("FName2"));
-			commonFunctions.getElement(driver, "household.lname").sendKeys(getSnapData("LName2"));
-			initializer.wait(2);
-			initializer.infoCall("Enter First name and Last name successfully.");
-		} catch (Exception e) {
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
-		}
-	}
-	public void firstLast_Name3() {
-		try {
-			commonFunctions.getElement(driver, "household.fname").sendKeys(getSnapData("FName3"));
-			commonFunctions.getElement(driver, "household.lname").sendKeys(getSnapData("LName3"));
-			initializer.wait(2);
-			initializer.infoCall("Enter First name and Last name successfully.");
-		} catch (Exception e) {
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
-		}
-	}
 	/**
 	 * @author Santhosh Karra
 	 */
 	public void dateOfBirth_Minor() {
 		try {
-			commonFunctions.getElement(driver, "household.day").sendKeys(getSnapData("Day1"));
-			selectDropDown(commonFunctions.getElement(driver, "household.month"), getSnapData("Month1"));
-			commonFunctions.getElement(driver, "household.year").sendKeys(getSnapData("Minoryear"));
+			commonFunctions.getElement(driver, "household.day").sendKeys(getDay());
+//					.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Date"));
+//			selectDropDownValue(commonFunctions.getElement(driver, "household.month"));
+			selectDropDown(commonFunctions.getElement(driver, "household.month"), getMonth());
+//			(commonFunctions.getTestData(stage.getTestName(), "Month")));
+			commonFunctions.getElement(driver, "household.year").sendKeys(getMinorYear());
+//			.sendKeys(commonFunctions.getTestData(stage.getTestName(), "Year"));
 			initializer.wait(2);
 			initializer.infoCall("Enter date of birth under minor group age.");
 		} catch (Exception e) {
@@ -970,9 +913,9 @@ public class Apply_SNAP_ApplicationFunctions{
 	 */
 	public void dateOfBirth_Major() {
 		try {
-			commonFunctions.getElement(driver, "household.day").sendKeys(getSnapData("Day2"));
-			selectDropDown(commonFunctions.getElement(driver, "household.month"), getSnapData("Month2"));
-			commonFunctions.getElement(driver, "household.year").sendKeys(getSnapData("Majoryear"));
+			commonFunctions.getElement(driver, "household.day").sendKeys(getDay());
+			selectDropDown(commonFunctions.getElement(driver, "household.month"), getMonth());
+			commonFunctions.getElement(driver, "household.year").sendKeys(getMajorYear());
 			initializer.infoCall("Enter date of birth under mjor group age.");
 			initializer.wait(2);
 		} catch (Exception e) {
@@ -986,9 +929,9 @@ public class Apply_SNAP_ApplicationFunctions{
 	 */
 	public void dateOfBirth_Senior() {
 		try {
-			commonFunctions.getElement(driver, "household.day").sendKeys(getSnapData("Day3"));
-			selectDropDown(commonFunctions.getElement(driver, "household.month"), getSnapData("Month3"));
-			commonFunctions.getElement(driver, "household.year").sendKeys(getSnapData("Senioryear"));
+			commonFunctions.getElement(driver, "household.day").sendKeys(getDay());
+			selectDropDown(commonFunctions.getElement(driver, "household.month"), getMonth());
+			commonFunctions.getElement(driver, "household.year").sendKeys(getSeniorYear());
 			initializer.infoCall("Enter date of birth under senior group age.");
 			initializer.wait(2);
 		} catch (Exception e) {
@@ -999,7 +942,7 @@ public class Apply_SNAP_ApplicationFunctions{
 
 	public void middle_Name() {
 		try {
-			commonFunctions.getElement(driver, "household.mname").sendKeys(getSnapData("MName"));
+			commonFunctions.getElement(driver, "household.mname").sendKeys(getName());
 			initializer.infoCall("Enter middle name successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
@@ -1062,7 +1005,6 @@ public class Apply_SNAP_ApplicationFunctions{
 			try {
 				String addr = commonFunctions.getElement(driver, "fs.addressvalidation").getText();
 				String phone = commonFunctions.getElement(driver, "fs.phonevalidation").getText();
-				
 				initializer.infoCall("Address validation: " + addr);
 				initializer.infoCall("Phone number validation: " + phone);
 				Assert.assertEquals(addr, addressvalidation);
@@ -1071,27 +1013,8 @@ public class Apply_SNAP_ApplicationFunctions{
 			} catch (AssertionError e) {
 				initializer.failureCallwithExceptionAssertion("The Failed", e);
 			}
-					} catch (Exception e) {
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
-		}
-	}
-
-	/**
-	 * @author Santhosh Karra
-	 */
-	public void myContactInfo_Email_ValidationMsg() {
-		try {
-			try {
-				String email = commonFunctions.getElement(driver, "fs.emailvalidation").getText();
-				initializer.infoCall("Email validation: " + email);
-				Assert.assertEquals(email, emailvalidation);
-			} catch (AssertionError e) {
-				initializer.failureCallwithExceptionAssertion("The Failed", e);
-			}
 			String title = commonFunctions.getElement(driver, "page.title").getText();
 			initializer.successCallwithSnapShot("All '" + title + "' Page Required fields validated successfully ");
-			initializer.wait(4);
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
 			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
@@ -1101,17 +1024,42 @@ public class Apply_SNAP_ApplicationFunctions{
 	/**
 	 * @author Santhosh Karra
 	 */
-	
+	public void email_ValidationMsg() {
+		try {
+
+			commonFunctions.getElement(driver, "fs.email").sendKeys(getWrongEmail());
+			commonFunctions.getElement(driver, "generic.continue").click();
+			try {
+				String email = commonFunctions.getElement(driver, "fs.emailvalidation").getText();
+				initializer.infoCall("Email validation: " + email);
+				Assert.assertEquals(email, emailvalidation);
+			} catch (AssertionError e) {
+				initializer.failureCallwithExceptionAssertion("The Failed", e);
+			}
+			String title = commonFunctions.getElement(driver, "page.title").getText();
+			initializer.successCallwithSnapShot("All '" + title + "' Page Required fields validated successfully ");
+		} catch (Exception e) {
+			String title = commonFunctions.getElement(driver, "page.title").getText();
+			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
+		}
+	}
+
+	/**
+	 * @author Santhosh Karra
+	 */
 	public void myContactInfo_AddressZipCode_ValidationMsg() {
 		try {
+//			commonFunctions.getElement(driver, "homeless.yes").click();
 			initializer.wait(2);
-			commonFunctions.getElement(driver, "fs.street").sendKeys(getSnapData("StreetName"));
-			commonFunctions.getElement(driver, "fs.zip").sendKeys(getSnapData("Wrongzip"));
+			commonFunctions.getElement(driver, "fs.street").sendKeys(getStreetName());
+			commonFunctions.getElement(driver, "fs.zip").sendKeys(getWrongZip());
 			initializer.wait(2);
 			commonFunctions.getElement(driver, "generic.continue").click();
 			try {
+
 				String zip = commonFunctions.getElement(driver, "fs.zipcodevalidation").getText();
-				initializer.infoCall("Zip Validation: " + zip);
+				initializer.infoCall("Massachusetts residents Zip code validation: " + zip);
+//				Assert.assertEquals(zip, commonFunctions.getTestData(stage.getTestName(), "zipvalidation"));
 				Assert.assertEquals(zip, zipvalidation);
 			} catch (AssertionError e) {
 				initializer.failureCallwithExceptionAssertion("The Failed", e);
@@ -1125,25 +1073,74 @@ public class Apply_SNAP_ApplicationFunctions{
 			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
 		}
 	}
-	
+
 	/**
 	 * @author Santhosh Karra
 	 */
+	public void myContactInfo_MailAddress_ValidationMsg() {
+		try {
+			commonFunctions.getElement(driver, "generic.continue").click();
+			try {
+				String addr = commonFunctions.getElement(driver, "fs.mailvalidation").getText();
+				initializer.infoCall("Address validation: " + addr);
+//				initializer.successCallwithSnapShot("Address validation: " + addr);
+				Assert.assertEquals(addr, commonFunctions.getTestData(stage.getTestName(), "addressvalidation"));
+			} catch (AssertionError e) {
+				initializer.failureCallwithExceptionAssertion("The Failed", e);
+			}
+			String title = commonFunctions.getElement(driver, "page.title").getText();
+			initializer.successCallwithSnapShot(title + "' Page Mail address Required fields validation successfully.");
+		} catch (Exception e) {
+			String title = commonFunctions.getElement(driver, "page.title").getText();
+			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
+		}
+	}
 
+	/**
+	 * @author Santhosh Karra
+	 */
+	public void myContactInfo_MailAddressZipCode_ValidationMsg() {
+		try {
+			commonFunctions.getElement(driver, "fs.mailstreet").sendKeys(getStreetName());
+			commonFunctions.getElement(driver, "fs.mailzip").sendKeys(getWrongZip());
+			initializer.wait(2);
+			commonFunctions.getElement(driver, "generic.continue").click();
+			try {
+				String zip = commonFunctions.getElement(driver, "fs.zipcodevalidation").getText();
+				initializer.infoCall("Massachusetts residents Zip code validation: " + zip);
+				Assert.assertEquals(zip, commonFunctions.getTestData(stage.getTestName(), "zipvalidation"));
+			} catch (AssertionError e) {
+				initializer.failureCallwithExceptionAssertion("The Failed", e);
+			}
+			String title = commonFunctions.getElement(driver, "page.title").getText();
+			initializer.successCallwithSnapShot(
+					"'" + title + "' Non residents of Massachusetts Zipcode validated successfully.");
+
+		} catch (Exception e) {
+			String title = commonFunctions.getElement(driver, "page.title").getText();
+			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
+		}
+	}
+
+	/**
+	 * @author Santhosh Karra
+	 */
 	public void address() {
 		try {
 			commonFunctions.getElement(driver, "fs.street").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME));
 			commonFunctions.getElement(driver, "fs.street").sendKeys(Keys.DELETE);
-			commonFunctions.getElement(driver, "fs.street").sendKeys(getSnapData("StreetName"));
+			initializer.wait(2);
+			commonFunctions.getElement(driver, "fs.street").sendKeys(getStreetName());
 			commonFunctions.getElement(driver, "fs.zip").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME));
 			commonFunctions.getElement(driver, "fs.zip").sendKeys(Keys.DELETE);
-			commonFunctions.getElement(driver, "fs.zip").sendKeys(getSnapData("Zipcode"));
+			commonFunctions.getElement(driver, "fs.zip").sendKeys(getZipCode());
 			initializer.infoCall("Enter client address successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
 			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
 		}
 	}
+
 	/**
 	 * @author Santhosh Karra
 	 */
@@ -1176,65 +1173,26 @@ public class Apply_SNAP_ApplicationFunctions{
 	/**
 	 * @author Santhosh Karra
 	 */
-	public void myContactInfo_MailAddressEmail_ValidationMsg() {
+	public void mailAddress_MyContactInfo() {
 		try {
-			try {
-				commonFunctions.getElement(driver, "generic.continue").click();
-				initializer.wait(2);
-				String email = commonFunctions.getElement(driver, "fs.emailvalidation").getText();
-				initializer.wait(3);
-				initializer.infoCall("Email validation: " + email);
-				Assert.assertEquals(email, emailvalidation);
-			} catch (AssertionError e) {
-				initializer.failureCallwithExceptionAssertion("The Failed", e);
-			}
-			initializer.wait(2);
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.successCallwithSnapShot("All '" + title + "' Page Required fields validated successfully ");
-			initializer.wait(4);
+			commonFunctions.getElement(driver, "fs.mailstreet").sendKeys(getStreetName());
+			commonFunctions.getElement(driver, "fs.mailzip").sendKeys(getZipCode());
+			initializer.infoCall("Enter client mailing address successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
 			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
 		}
 	}
 
-	public void myContactInfo_MailAddressZipCode_ValidationMsg() {
-		try {
-			initializer.wait(2);
-			commonFunctions.getElement(driver, "fs.mailstreet").sendKeys(getSnapData("MailStreetName"));
-			commonFunctions.getElement(driver, "fs.mailzip").sendKeys(getSnapData("Wrongzip"));
-			initializer.wait(2);
-			try {
-				commonFunctions.getElement(driver, "generic.continue").click();
-				String zip = commonFunctions.getElement(driver, "fs.zipcodevalidation").getText();
-				initializer.infoCall("Massachusetts residents Zip code validation: " + zip);
-				Assert.assertEquals(zip, mailingzipvalidation);
-			} catch (AssertionError e) {
-				initializer.failureCallwithExceptionAssertion("The Failed", e);
-			}
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.successCallwithSnapShot(
-					"'" + title + "' Non residents of Massachusetts Zipcode validated successfully.");
-
-		} catch (Exception e) {
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
-		}
-	}
-	
 	/**
 	 * @author Santhosh Karra
 	 */
-	
-	public void mail_address() {
+	public void phone_MyContactInfo() {
 		try {
-			commonFunctions.getElement(driver, "fs.mailstreet").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME));
-			commonFunctions.getElement(driver, "fs.mailstreet").sendKeys(Keys.DELETE);
-			commonFunctions.getElement(driver, "fs.mailstreet").sendKeys(getSnapData("MailStreetName"));
-			commonFunctions.getElement(driver, "fs.mailzip").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME));
-			commonFunctions.getElement(driver, "fs.mailzip").sendKeys(Keys.DELETE);
-			commonFunctions.getElement(driver, "fs.mailzip").sendKeys(getSnapData("MailZipcode"));
-			initializer.infoCall("Enter client address successfully.");
+			String phone = getPhoneNumber();
+			commonFunctions.getElement(driver, "fs.phone").clear();
+			commonFunctions.getElement(driver, "fs.phone").sendKeys(phone);
+			initializer.infoCall("Enter phone number :" + phone + " successfully");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
 			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
@@ -1249,26 +1207,13 @@ public class Apply_SNAP_ApplicationFunctions{
 			commonFunctions.getElement(driver, "fs.email").clear();
 			String email = getEmail();
 			commonFunctions.getElement(driver, "fs.email").sendKeys(email);
-			initializer.infoCall("Enter client email address as " + email + " successfully.");
+			initializer.infoCall("Enter client emai address as " + email + " successfully.");
 		} catch (Exception e) {
 			String title = commonFunctions.getElement(driver, "page.title").getText();
 			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
 		}
 	}
-	/**
-	 * @author Santhosh Karra
-	 */
-	public void phone_MyContactInfo() {
-		try {
-			String phone = getSnapData("Phone");
-			commonFunctions.getElement(driver, "fs.phone").clear();
-			commonFunctions.getElement(driver, "fs.phone").sendKeys(phone);
-			initializer.infoCall("Enter phone number :" + phone + " successfully");
-		} catch (Exception e) {
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.failureCallwithException("Exception occured in '" + title + "' Page", e);
-		}
-	}
+
 //	*********************About me---Emergency SNAP benefits*****************************************************************************************************
 	/**
 	 * @author Santhosh Karra
@@ -1558,9 +1503,9 @@ public class Apply_SNAP_ApplicationFunctions{
 				initializer.successCallwithSnapShot("First Name validation: " + fname);
 				initializer.successCallwithSnapShot("Last Name validation: " + lname);
 				initializer.successCallwithSnapShot("Date of Birth validation: " + dob);
-				Assert.assertEquals(fname, commonFunctions.getTestData(stage.getTestName(), "HHFValidation", "file.recertDataFilePath"));
-				Assert.assertEquals(lname, commonFunctions.getTestData(stage.getTestName(), "HHLValidation", "file.recertDataFilePath"));
-				Assert.assertEquals(dob, commonFunctions.getTestData(stage.getTestName(), "DOBValidation", "file.recertDataFilePath"));
+				Assert.assertEquals(fname, commonFunctions.getTestData(stage.getTestName(), "HHFValidation"));
+				Assert.assertEquals(lname, commonFunctions.getTestData(stage.getTestName(), "HHLValidation"));
+				Assert.assertEquals(dob, commonFunctions.getTestData(stage.getTestName(), "DOBValidation"));
 
 			} catch (AssertionError e) {
 				initializer.failureCallwithExceptionAssertion("The Failed", e);
@@ -5555,44 +5500,17 @@ public class Apply_SNAP_ApplicationFunctions{
 
 		}
 	}
-	public void signSubmit_ES() {
-		try {
-			String title = commonFunctions.getElement(driver, "page.title").getText();
-			initializer.successCallwithSnapShot("Displayed " + title + " page successfully");
-			commonFunctions.getElement(driver, "sign.agree").click();
-			commonFunctions.getElement(driver, "sign.sign").sendKeys(getName());
-			initializer.wait(3);
-			initializer.successCallwithSnapShot("Client Agree and Signed successfully ");
-			commonFunctions.getElement(driver, "generic.continue").click();
-			initializer.wait(10);
-			initializer.successCallwithSnapShot("Client clicked submit and Signed successfully ");
-			initializer.wait(15);
-			String myNumber = commonFunctions.getElement(driver, "fsapplication.number.es").getText();
-			initializer.infoCall("number" + myNumber);
-//			deleteRecord_DB(myNumber.split(":")[1].trim());
-			commonFunctions.getElement(driver, "fsapplication.download.es").click();
-			initializer.wait(15);
-			initializer.successCallwithSnapShot(myNumber + " and it was downloaded successfully!");
-			initializer.successCallwithSnapShot(
-					"Datasheet available at \\DTAConnect\\src\\test\\resources\\Results\\Downloads");
-			initializer.wait(2);
 
-		} catch (Exception e) {
-
-			initializer.failureCallwithException("Exception occured in 'Sign & submit---Sign & Submit' Page", e);
-
-		}
-	}
 //  *********************SNAP Eligibility Screener**********************************************************************************************************
 	/**
 	 * @author Santhosh Karra
 	 */
 	public void SNAP_Eligibility_Button() {
 		try {
-			initializer.wait(5);
+			initializer.wait(2);
 			commonFunctions.getElement(driver, "fs.snapEligibility").click();
 			initializer.infoCall("Clicking 'Find out if you may eligible' button sucessfully.");
-			initializer.wait(5);
+			initializer.wait(2);
 			initializer.successCallwithSnapShot("'Am I eligible for SNAP' application is launched successfully");
 			String title = commonFunctions.getElement(driver, "page.title").getText();
 			initializer.successCallwithSnapShot("Navigate to '" + title + "' page successfully");
