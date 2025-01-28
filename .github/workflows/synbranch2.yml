@@ -6,11 +6,11 @@ on:
       source_branch:
         description: "Branch to sync from source repository"
         required: true
-        default: "main"
+        default: "odc_sample"
       destination_branch:
         description: "Branch to push to destination repository"
         required: true
-        default: "main"
+        default: "odc_sample"
 env:
   GITHUB_PRIVATE_KEY_PERSONAL: ${{ secrets.PERSONAL_PVT_KEY }}
   GITHUB_PRIVATE_KEY_OFFSHORE: ${{ secrets.OFFSHORE_PVT_KEY }}
