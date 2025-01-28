@@ -1,0 +1,50 @@
+name: Sync Repositories
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_branch:
+        description: "Branch to sync from source repository"
+        required: true
+        default: "odc_sample"
+      destination_branch:
+        description: "Branch to push to destination repository"
+        required: true
+        default: "odc_sample"
+
+env:
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+jobs:
+  sync-repositories:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Setup SSH
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${{ env.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 700 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+      # Step 2: Clone Source Repository
+      - name: Clone Source Repository
+        run: |
+          git clone --branch ${{ github.event.inputs.source_branch }} git@github.com:aravinthsridhar/dta-automation.git source-repo
+          cd source-repo
+          echo "Cloned source repository: $(pwd)"
+
+      # Step 3: Add Destination Repository as Remote
+      - name: Add Destination Repository
+        run: |
+          cd source-repo
+          git remote add destination git@github.com:kyybatech/repo_connect_automation.git
+          echo "Added destination repository as remote"
+
+      # Step 4: Push Code to Destination Repository
+      - name: Push to Destination Repository
+        run: |
+          cd source-repo
+          git push destination ${{ github.event.inputs.source_branch }}:${{ github.event.inputs.destination_branch }}
