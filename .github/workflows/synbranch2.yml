@@ -13,7 +13,7 @@ on:
         default: "odc_sample"
 
 env:
-  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  SSH_PRIVATE_KEY: ${{ secrets.SYNC_NEW_FILE }}
 
 jobs:
   sync-repositories:
