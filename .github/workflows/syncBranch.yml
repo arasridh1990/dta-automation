@@ -42,6 +42,7 @@ jobs:
 
       - name: Configure Git Remote
         run: |
+          cd dta-automation
           git remote add dest git@github.com:kyybatech/repo_connect_automation.git
           git fetch dest || (echo "Failed to fetch from remote repository" && exit 1)
         
