@@ -29,6 +29,8 @@ jobs:
           chmod 700 ~/.ssh
           echo "${{ env.GITHUB_PRIVATE_KEY_PERSONAL }}" > ~/.ssh/source_repo_key
           chmod 700 ~/.ssh/source_repo_key
+          eval $(ssh-agent -s)
+          ssh-add ~/.ssh/source_repo_key <<< ${{secrets.PASSPHRASE}}
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           export GIT_SSH_COMMAND="ssh -i ~/.ssh/source_repo_key"
 
@@ -38,26 +40,3 @@ jobs:
           git clone --branch ${{ github.event.inputs.source_branch }} git@github.com:aravinthsridhar/dta-automation.git source-repo
           cd source-repo
           echo "Cloned source repository: $(pwd)"
-
-      # Step 3: Configure SSH for Destination Repository
-      - name: Configure SSH for Destination
-        run: |
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          echo "${{ env.GITHUB_PRIVATE_KEY_OFFSHORE }}" > ~/.ssh/destination_repo_key
-          chmod 700 ~/.ssh/destination_repo_key
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          export GIT_SSH_COMMAND="ssh -i ~/.ssh/destination_repo_key"
-
-      # Step 4: Add Destination Repository as Remote
-      - name: Add Destination Repository
-        run: |
-          cd source-repo
-          git remote add destination git@github.com:kyybatech/repo_connect_automation.git
-          echo "Added destination repository as remote"
-
-      # Step 5: Push Code to Destination Repository
-      - name: Push to Destination Repository
-        run: |
-          cd source-repo
-          git push destination ${{ github.event.inputs.source_branch }}:${{ github.event.inputs.destination_branch }}
