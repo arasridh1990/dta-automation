@@ -1,0 +1,63 @@
+name: Sync Repositories
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_branch:
+        description: "Branch to sync from source repository"
+        required: true
+        default: "odc_sample"
+      destination_branch:
+        description: "Branch to push to destination repository"
+        required: true
+        default: "odc_sample"
+env:
+  GITHUB_PRIVATE_KEY_PERSONAL: ${{ secrets.PERSONAL_PVT_KEY }}
+  GITHUB_PRIVATE_KEY_OFFSHORE: ${{ secrets.OFFSHORE_PVT_KEY }}
+  GITHUB_PERSONAL_REPO_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+  GIHUB_PASSPAHRASE: ${{ secrets.PASSPHRASE }}
+
+jobs:
+  sync-repositories:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Configure SSH for Source Repository
+      - name: Configure SSH for Source
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${{ env.GITHUB_PRIVATE_KEY_PERSONAL }}" > ~/.ssh/source_repo_key
+          chmod 700 ~/.ssh/source_repo_key
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          export GIT_SSH_COMMAND="ssh -i ~/.ssh/source_repo_key"
+
+      # Step 2: Clone Source Repository
+      - name: Clone Source Repository
+        run: |
+          git clone --branch ${{ github.event.inputs.source_branch }} git@github.com:aravinthsridhar/dta-automation.git source-repo
+          cd source-repo
+          echo "Cloned source repository: $(pwd)"
+
+      # Step 3: Configure SSH for Destination Repository
+      - name: Configure SSH for Destination
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "${{ env.GITHUB_PRIVATE_KEY_OFFSHORE }}" > ~/.ssh/destination_repo_key
+          chmod 700 ~/.ssh/destination_repo_key
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          export GIT_SSH_COMMAND="ssh -i ~/.ssh/destination_repo_key"
+
+      # Step 4: Add Destination Repository as Remote
+      - name: Add Destination Repository
+        run: |
+          cd source-repo
+          git remote add destination git@github.com:kyybatech/repo_connect_automation.git
+          echo "Added destination repository as remote"
+
+      # Step 5: Push Code to Destination Repository
+      - name: Push to Destination Repository
+        run: |
+          cd source-repo
+          git push destination ${{ github.event.inputs.source_branch }}:${{ github.event.inputs.destination_branch }}
